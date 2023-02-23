@@ -1,27 +1,57 @@
 package com.example.cinemaapp.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+import java.util.Objects;
+
+
 @Entity
 @Getter
 @Setter
 public class Movies {
-
     @Id
-    @GeneratedValue
-    private Integer id;
-
-    private String movie_name;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer movie_id;
+    @Column(length = 1333, nullable = false, unique = true)
+    private String movieName;
+    @Column( length = 500, nullable = false)
     private String movie_description;
-
+    @Column(length = 500, nullable = false)
     private String movie_image_link;
 
+
+    public Movies(){}
+
+    public Movies(String movieName, String movie_description,String movie_image_link, String trailerURL) {
+        this.movieName = movieName;
+        this.movie_description = movie_description;
+        this.movie_image_link = movie_image_link;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movies movie = (Movies) o;
+        return  movieName.equals(movie.movieName) &&
+                movie_description.equals(movie.movie_description) &&
+                movie_image_link.equals(movie.movie_image_link);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movieName, movie_description, movie_image_link);
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + movie_id + '\'' +
+                ", name='" + movieName + '\'' +
+                ", description='" + movie_description + '\'' +
+                ", releaseDate=" + movie_image_link +
+                '}';
+    }
 }

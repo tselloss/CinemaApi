@@ -21,29 +21,21 @@ public class CustomerController {
 
     @PostMapping("/customers")
     public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer customer) throws CustomerException{
-
         Customer addedCustomer = customerService.addCustomer(customer);
-
         return new ResponseEntity<Customer>(addedCustomer, HttpStatus.CREATED);
 
     }
 
     @PutMapping("/customers/{key}")
     public ResponseEntity<Customer> updateCustomerHandler(@PathVariable("key") String key,@RequestBody Customer customer) throws LoginException, CustomerException{
-
         Customer updatedCustomer = customerService.updateCustomer(customer, key);
-
         return new ResponseEntity<Customer>(updatedCustomer, HttpStatus.CREATED);
-
     }
 
     @DeleteMapping("/customers/{key}")
     public ResponseEntity<Customer> removeCustomerHandler(@PathVariable("key") String key,@RequestBody Customer customer) throws CustomerException, LoginException{
-
         Customer deletedCustomer = customerService.removeCustomer(customer, key);
-
         return new ResponseEntity<Customer>(deletedCustomer, HttpStatus.OK);
-
     }
 
     @GetMapping("/customers/{customerid}")

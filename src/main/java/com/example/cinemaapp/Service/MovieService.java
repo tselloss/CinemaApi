@@ -1,19 +1,16 @@
 package com.example.cinemaapp.Service;
 
 import com.example.cinemaapp.Model.Movies;
+import org.springframework.data.domain.Page;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface MovieService {
 
 
-    Movies addMovie(Movies movie);
-
-    Movies updateMovie(Movies movie);
-
-    Movies removeMovie(Movies movie);
-
-    Movies viewMovie(int movieId);
-
-    List<Movies> viewMovieList();
+    public Movies acceptMovieDetails(Movies movie);
+    public Movies getMovieDetails(int id) throws Exception;
+    public Movies updateMovieDetails(int id, Movies movie) throws Exception;
+    public List<Movies> getAllMoviesDetails();
 }
