@@ -7,6 +7,7 @@ import com.example.cinemaapp.Exceptions.UserException;
 import com.example.cinemaapp.Model.CurrentUserSession;
 import com.example.cinemaapp.Model.Customer;
 import com.example.cinemaapp.Model.User;
+import com.example.cinemaapp.Repository.CurrentUserSessionRepo;
 import com.example.cinemaapp.Service.CustomerService;
 import com.example.cinemaapp.Service.LoginService;
 import jakarta.validation.Valid;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +30,10 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CurrentUserSessionRepo currentUserSessionRepo;
 
     @PostMapping("/login")
     public ResponseEntity addUser(@RequestBody LoginDTO loginDTO) throws Exception {
@@ -40,6 +44,11 @@ public class LoginController {
         }
         model.put("message","Logged in Successfully");
         model.put("token",savedCustomer.getUsername());
+        model.put("customer_id", String.valueOf(savedCustomer.getCustomerId()));
+        
+        LocalDateTime rightNow = LocalDateTime.now();
+        CurrentUserSession currentUserSession= new CurrentUserSession(loginDTO.getCustomer_id(), loginDTO.getUsername(),rightNow );
+        currentUserSessionRepo.save(currentUserSession);
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 

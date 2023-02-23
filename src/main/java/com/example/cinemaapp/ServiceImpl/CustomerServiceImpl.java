@@ -33,6 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
         if(opt.isPresent()) {
             throw new CustomerException("Customer already Exist With this Username");
         }
+
         return customerRepo.save(cust);
     }
 
