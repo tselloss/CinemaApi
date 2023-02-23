@@ -1,16 +1,22 @@
 package com.example.cinemaapp.Controllers;
 
+import com.example.cinemaapp.DTO.LoginDTO;
 import com.example.cinemaapp.Exceptions.CustomerException;
 import com.example.cinemaapp.Exceptions.LoginException;
 import com.example.cinemaapp.Exceptions.UserException;
 import com.example.cinemaapp.Model.CurrentUserSession;
+import com.example.cinemaapp.Model.Customer;
 import com.example.cinemaapp.Model.User;
+import com.example.cinemaapp.Service.CustomerService;
 import com.example.cinemaapp.Service.LoginService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -21,12 +27,20 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+
+    @Autowired
+    private CustomerService customerService;
+
     @PostMapping("/login")
-    public ResponseEntity<CurrentUserSession> addUser(@Valid @RequestBody User user) throws UserException, CustomerException {
-
-        CurrentUserSession currentSession = loginService.addUser(user);
-
-        return new ResponseEntity<CurrentUserSession>(currentSession, HttpStatus.CREATED) ;
+    public ResponseEntity addUser(@RequestBody LoginDTO loginDTO) throws Exception {
+        Map<String, String> model = new HashMap<>();
+        Customer savedCustomer = customerService.getCustomerDetailsByUsername(loginDTO.getUsername());
+        if (!savedCustomer.getPassword().equals(loginDTO.getPassword())) {
+            throw new Exception("Invalid username/password");
+        }
+        model.put("message","Logged in Successfully");
+        model.put("token",savedCustomer.getUsername());
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @DeleteMapping("/logout")

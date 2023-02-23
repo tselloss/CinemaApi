@@ -18,4 +18,5 @@ public interface CustomerService {
 
     public List<Customer> viewAllCustomer() throws CustomerException ;
 
+    public Customer getCustomerDetailsByUsername(String username) throws Exception;
 }

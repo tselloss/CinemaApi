@@ -29,11 +29,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer addCustomer(Customer cust) throws CustomerException {
-        Optional<Customer> opt = customerRepo.findByUsername(cust.getUsername()) ;
+       Optional<Customer> opt = customerRepo.findByUsername(cust.getUsername()) ;
         if(opt.isPresent()) {
             throw new CustomerException("Customer already Exist With this Username");
         }
-
         return customerRepo.save(cust);
     }
 
@@ -56,6 +55,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerException("Can't change UserID!") ;
         }
 
+
+    }
+    @Override
+    public Customer getCustomerDetailsByUsername(String username) throws Exception {
+        return customerRepo.findByUsername(username)
+                .orElseThrow(
+                        () -> new Exception("Customer not found with username: " + username)
+                );
     }
 
     @Override
