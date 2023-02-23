@@ -1,16 +1,19 @@
 package com.example.cinemaapp.Exceptions;
 
 
+import ch.qos.logback.core.model.processor.ModelHandlerException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
 
 @ControllerAdvice
+@RestController
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -52,6 +55,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> otherExceptionHandler(Exception se, WebRequest req){
+        ErrorDetails err= new ErrorDetails();
+        err.setTimeStamp(LocalDateTime.now());
+        err.setMessage(se.getMessage());
+        err.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        err.setDetails(req.getDescription(false));
+        return new ResponseEntity<ErrorDetails>(err, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(ModelHandlerException.class)
+    public ResponseEntity<ErrorDetails> MovieExceptionHandler(Exception se, WebRequest req){
         ErrorDetails err= new ErrorDetails();
         err.setTimeStamp(LocalDateTime.now());
         err.setMessage(se.getMessage());
