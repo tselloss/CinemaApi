@@ -40,20 +40,15 @@ public class CustomerController {
 
     @GetMapping("/customers/{customerid}")
     public ResponseEntity<Customer> getCustomerHandler(@PathVariable("customerid") Integer customerId) throws CustomerException{
-
         Customer existingCustomer = customerService.viewCustomer(customerId);
-
         return new ResponseEntity<Customer>(existingCustomer, HttpStatus.OK);
 
     }
 
-    @GetMapping("/getallcustomers/{city}")
-    public ResponseEntity<List<Customer>> getAllCustomersByLocation(@PathVariable("city") String city) throws CustomerException {
-
-        List<Customer> customersByLocation = customerService.viewAllCustomer(city);
-
-        return new ResponseEntity<List<Customer>>(customersByLocation, HttpStatus.OK);
-
+    @GetMapping("/getallcustomers")
+    public ResponseEntity<List<Customer>> getAllCustomers() throws CustomerException {
+        List<Customer> customers = customerService.viewAllCustomer();
+        return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
     }
 
 

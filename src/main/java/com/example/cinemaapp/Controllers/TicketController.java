@@ -12,10 +12,8 @@ import java.util.List;
 
 @RestController
 public class TicketController {
-
     @Autowired
     private TicketService service;
-
     @Autowired
     private SeatRepo seatRepo;
 

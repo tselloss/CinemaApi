@@ -46,7 +46,7 @@ public class LoginServiceImpl implements LoginService {
         if(currentUserOptional.isPresent()) {
             throw new UserException("User has already logged in with userId : " + user.getUserId());
         }
-        if(currentCustomer.getMobileNumber().equals(user.getUserId()) && currentCustomer.getPassword().equals(user.getPassword())) {
+        if(currentCustomer.getMobile_number().equals(user.getUserId()) && currentCustomer.getPassword().equals(user.getPassword())) {
             int leftLimit = 97; // letter 'a'
             int rightLimit = 122; // letter 'z'
             int targetStringLength = 10;
@@ -103,7 +103,7 @@ public class LoginServiceImpl implements LoginService {
 
         Customer currentCustomer = currentCustomerOpt.get();
 
-        if(user.getUserId().equals(currentCustomer.getMobileNumber()) && user.getPassword().equals(currentCustomer.getPassword())) {
+        if(user.getUserId().equals(currentCustomer.getMobile_number()) && user.getPassword().equals(currentCustomer.getPassword())) {
             return user;
         }
         else {

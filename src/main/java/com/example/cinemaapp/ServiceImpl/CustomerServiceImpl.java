@@ -29,9 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer addCustomer(Customer cust) throws CustomerException {
-
         Optional<Customer> opt = customerRepo.findByUsername(cust.getUsername()) ;
-
         if(opt.isPresent()) {
             throw new CustomerException("Customer already Exist With this Username");
         }
@@ -46,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         if(customerDetails == null) {
             throw new LoginException("No user Found | Login first");
-        }else if( cust.getMobileNumber().toCharArray().length != 10 ){
+        }else if( cust.getMobile_number().toCharArray().length != 10 ){
 
             throw new CustomerException("Mobile Number can only be of 10 digit");
         }
@@ -109,8 +107,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> viewAllCustomer(String location) throws CustomerException {
-        return null;
+    public List<Customer> viewAllCustomer() throws CustomerException {
+        return customerRepo.findAll();
     }
 
 }

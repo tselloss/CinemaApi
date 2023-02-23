@@ -15,10 +15,8 @@ import java.util.List;
 
 @RestController
 public class MovieController {
-
     @Autowired
     private MovieService movieService;
-
     @Autowired
     ModelMapper modelmapper;
 

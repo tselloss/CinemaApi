@@ -16,6 +16,6 @@ public interface CustomerService {
 
     public Customer viewCustomer(Integer customerId)  throws CustomerException;
 
-    public List<Customer> viewAllCustomer(String location) throws CustomerException ;
+    public List<Customer> viewAllCustomer() throws CustomerException ;
 
 }

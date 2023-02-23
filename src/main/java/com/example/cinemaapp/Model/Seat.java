@@ -14,13 +14,10 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Seat {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int seatId;
-
     private String seatNumber;
-
     private Double price;
 
 
