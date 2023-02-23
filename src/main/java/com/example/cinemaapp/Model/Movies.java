@@ -23,13 +23,5 @@ public class Movies {
     private String movie_description;
 
     private String movie_image_link;
-    private String room;
-
-    public Movies(String movie_name,String movie_description,String movie_image_link)
-    {
-        this.movie_name=movie_name;
-        this.movie_description=movie_description;
-        this.movie_image_link=movie_image_link;
-    }
 
 }

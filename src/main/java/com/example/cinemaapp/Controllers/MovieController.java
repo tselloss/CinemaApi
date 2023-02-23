@@ -13,30 +13,29 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
 public class MovieController {
 
     @Autowired
-    private MovieService service;
+    private MovieService movieService;
 
 
     @GetMapping("/movies")
     public List<Movies> getAllMovies() {
-        return service.viewMovieList();
+        return movieService.viewMovieList();
     }
 
     @PostMapping("/movie")
     public Movies addMovie(@RequestBody Movies movies) {
-        return service.addMovie(movies);
+        return movieService.addMovie(movies);
     }
 
     @PutMapping("/movie")
     public Movies updateMovie(@RequestBody Movies movies) {
-        return service.updateMovie(movies);
+        return movieService.updateMovie(movies);
     }
 
     @DeleteMapping("/movie")
     public Movies deleteMovie(@RequestBody Movies movies) {
-        return service.removeMovie(movies);
+        return movieService.removeMovie(movies);
     }
 }
