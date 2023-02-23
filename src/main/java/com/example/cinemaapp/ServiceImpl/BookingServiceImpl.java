@@ -16,7 +16,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public TicketsBooking addBooking(TicketsBooking booking) {
-
         return bookingRepo.save(booking);
     }
 
@@ -33,7 +32,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<TicketsBooking> showAllBooking() {
-
         return bookingRepo.findAll();
     }
 

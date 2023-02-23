@@ -11,32 +11,32 @@ import java.util.List;
 @Service
 public class MovieServiceImpl  implements MovieService {
         @Autowired
-        private MovieRepo repo;
+        private MovieRepo movieRepo;
 
         @Override
         public Movies addMovie(Movies movies) {
 
-            return repo.save(movies);
+            return movieRepo.save(movies);
         }
 
         @Override
         public Movies updateMovie(Movies movies) {
-            return repo.save(movies);
+            return movieRepo.save(movies);
         }
 
         @Override
         public Movies removeMovie(Movies movies) {
-            repo.delete(movies);
+            movieRepo.delete(movies);
             return movies;
         }
 
         @Override
         public Movies viewMovie(int movieId) {
-             return repo.findById(movieId).orElse(new Movies());
+             return movieRepo.findById(movieId).orElse(new Movies());
         }
 
         @Override
         public List<Movies> viewMovieList() {
-            return repo.findAll();
+            return movieRepo.findAll();
         }
 }
