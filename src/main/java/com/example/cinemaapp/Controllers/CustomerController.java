@@ -48,7 +48,6 @@ public class CustomerController {
     public ResponseEntity<Customer> getCustomerHandler(@PathVariable("customerid") Integer customerId) throws CustomerException{
         Customer existingCustomer = customerService.viewCustomer(customerId);
         return new ResponseEntity<Customer>(existingCustomer, HttpStatus.OK);
-
     }
 
     @GetMapping("/getallcustomers")
@@ -56,6 +55,4 @@ public class CustomerController {
         List<Customer> customers = customerService.viewAllCustomer();
         return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
     }
-
-
 }

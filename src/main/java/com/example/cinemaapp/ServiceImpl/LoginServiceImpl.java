@@ -32,26 +32,20 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public CurrentUserSession addUser(User user) throws UserException, CustomerException {
         Optional<Customer> opt = customerRepo.findByUsername(user.getUserId()) ;
-
         if(opt.isEmpty()) {
-            throw new CustomerException("User not found with Mobile number : "+user.getUserId());
+            throw new CustomerException("User with Mobile number NOT FOUND: "+user.getUserId());
         }
-
         Customer currentCustomer = opt.get();
-
         Integer customerId = currentCustomer.getCustomerId();
-
         Optional<CurrentUserSession> currentUserOptional = currentUserSessionRepo.findByCustomerId(customerId);
-
         if(currentUserOptional.isPresent()) {
-            throw new UserException("User has already logged in with userId : " + user.getUserId());
+            throw new UserException("User: " + user.getUserId()+" has already logged in!!!");
         }
         if(currentCustomer.getMobile_number().equals(user.getUserId()) && currentCustomer.getPassword().equals(user.getPassword())) {
             int leftLimit = 97; // letter 'a'
             int rightLimit = 122; // letter 'z'
             int targetStringLength = 10;
             Random random = new Random();
-
             String key = random.ints(leftLimit, rightLimit + 1)
                     .limit(targetStringLength)
                     .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
