@@ -16,4 +16,6 @@ public class CinemaAppApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
+
 }

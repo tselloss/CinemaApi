@@ -45,7 +45,6 @@ public class LoginController {
         model.put("message","Logged in Successfully");
         model.put("token",savedCustomer.getUsername());
         model.put("customer_id", String.valueOf(savedCustomer.getCustomerId()));
-        
         LocalDateTime rightNow = LocalDateTime.now();
         CurrentUserSession currentUserSession= new CurrentUserSession(loginDTO.getCustomer_id(), loginDTO.getUsername(),rightNow );
         currentUserSessionRepo.save(currentUserSession);
