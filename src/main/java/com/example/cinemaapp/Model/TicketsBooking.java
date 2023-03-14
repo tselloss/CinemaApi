@@ -3,6 +3,8 @@ package com.example.cinemaapp.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -27,5 +29,11 @@ public class TicketsBooking {
 
     @OneToOne
     private Tickets ticket;
+
+    @OneToOne
+    private Room room;
+
+    @OneToMany
+    private List<Movies> movies;
 
 }

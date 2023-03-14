@@ -18,7 +18,6 @@ public class EmailSenderServiceImpl {
         message.setTo(toEmail);
         message.setText(body);
         message.setSubject(subject);
-
         mailSender.send(message);
         System.out.println("Mail Sent successfully");
     }

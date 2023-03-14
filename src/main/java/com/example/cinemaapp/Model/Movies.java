@@ -51,7 +51,7 @@ public class Movies {
                 "id=" + movie_id + '\'' +
                 ", name='" + movieName + '\'' +
                 ", description='" + movie_description + '\'' +
-                ", releaseDate=" + movie_image_link +
+                ", imageLink=" + movie_image_link +
                 '}';
     }
 }

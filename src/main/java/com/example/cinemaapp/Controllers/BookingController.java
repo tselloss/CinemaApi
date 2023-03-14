@@ -14,11 +14,6 @@ public class BookingController {
     @Autowired
     private BookingService service;
 
-    @Autowired
-    private CustomerService customerService;
-    @Autowired
-    private CurrentUserSessionRepo currentUserSessionRepo;
-
     @GetMapping("/bookings")
     public List<TicketsBooking> getAllBookings(){
         return service.showAllBooking();

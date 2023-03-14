@@ -13,33 +13,33 @@ import java.util.List;
 @RestController
 public class TicketController {
     @Autowired
-    private TicketService service;
+    private TicketService ticketService;
     @Autowired
     private SeatRepo seatRepo;
 
     @GetMapping("/tickets")
     public List<Tickets> getAllTickets(){
-        return service.viewAllTickets();
+        return ticketService.viewAllTickets();
     }
 
     @PostMapping("/ticket")
     public Tickets addTicket(@RequestBody Tickets ticket){
-        return service.addTicket(ticket);
+        return ticketService.addTicket(ticket);
     }
 
     @PutMapping("/ticket")
     public Tickets updateTicket(@RequestBody Tickets ticket){
-        return service.updateTicket(ticket);
+        return ticketService.updateTicket(ticket);
     }
 
     @DeleteMapping("/ticket")
     public Tickets deleteTicket(@RequestBody Tickets ticket){
-        return service.removeTicket(ticket);
+        return ticketService.removeTicket(ticket);
     }
 
     @PostMapping("/ticket/{id}/addSeat")
     public Tickets addSeat(@PathVariable("id") Integer id, @RequestBody Seat seat){
-        Tickets t = service.viewTicket(id);
+        Tickets t = ticketService.viewTicket(id);
         addSeat(id, seat);
         seatRepo.save(seat);
         return t;
@@ -47,7 +47,7 @@ public class TicketController {
 
     @DeleteMapping("/ticket/{id}/removeSeat")
     public Tickets removeSeat(@PathVariable("id") Integer id, @RequestBody Seat seat){
-        Tickets t = service.viewTicket(id);
+        Tickets t = ticketService.viewTicket(id);
         deleteTicket(t);
         seatRepo.delete(seat);
         return t;

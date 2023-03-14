@@ -45,5 +45,4 @@ public class MovieController {
         MovieDTO updatedMovieDTO = modelmapper.map(updatedMovie, MovieDTO.class);
         return new ResponseEntity<>(updatedMovieDTO,HttpStatus.OK);
     }
-
 }

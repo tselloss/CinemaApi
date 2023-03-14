@@ -1,9 +1,6 @@
 package com.example.cinemaapp.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -18,8 +15,7 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int seatId;
     private String seatNumber;
+    @Enumerated(EnumType.STRING)
+    private SeatStatus status;
     private Double price;
-
-
-
 }
