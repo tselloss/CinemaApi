@@ -7,6 +7,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+/**
+ * This is a Spring Boot controller class that provides REST endpoints for managing bookings. It uses dependency injection to inject a BookingService instance and defines four methods:
+ *
+ *     getAllBookings: retrieves all existing bookings via a GET request to "/bookings".
+ *     addBooking: creates a new booking via a POST request to "/booking" and returns the created booking.
+ *     updateBooking: updates an existing booking via a PUT request to "/booking" and returns the updated booking.
+ *     deleteBooking: cancels an existing booking via a DELETE request to "/booking" and returns the cancelled booking.
+ *
+ * All endpoints expect and return JSON data in the TicketsBooking format.
+ */
+
 @RestController
 public class BookingController {
     @Autowired

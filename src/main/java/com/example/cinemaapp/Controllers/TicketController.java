@@ -10,6 +10,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * This code defines a REST API for managing movie tickets.
+ * It includes endpoints for retrieving all tickets, adding a new ticket,
+ * updating an existing ticket, and deleting a ticket.
+ * Additionally, it provides endpoints for adding or removing a seat from a specific ticket.
+ * The code uses the TicketService to perform CRUD operations on tickets,
+ * and the SeatRepo to persist seat data to a database.
+ * The HTTP methods used in this API include GET, POST, PUT, and DELETE.
+ */
 @RestController
 public class TicketController {
     @Autowired

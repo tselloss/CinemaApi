@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a Spring REST Controller class for managing movie related operations.
+ * It has three endpoints, one for getting all movies, one for adding a new movie and one for updating an existing movie.
+ * It uses the MovieService to perform the business logic and the ModelMapper library for mapping between DTOs and entity objects
+ * .The getAllMovies endpoint returns a list of MovieDTOs, the newMovie endpoint adds a new movie and returns the added movie,
+ * and the updateMovieDetails endpoint updates an existing movie and returns the updated movie details in a MovieDTO format.
+ */
 @RestController
 public class MovieController {
     @Autowired
