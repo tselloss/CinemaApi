@@ -18,15 +18,14 @@ public class Tickets {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int ticketId;
 
-    private int noOfSeats;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_ticket_id", referencedColumnName = "ticketId")
-    private List<Seat> seatNumber;
+    @ManyToOne
+    private Movies movie_name;
 
     private boolean ticketStatus;
 
     @OneToOne
     private TicketsBooking booking;
+
+
 
 }

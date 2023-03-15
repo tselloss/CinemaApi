@@ -3,6 +3,8 @@ package com.example.cinemaapp.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -19,6 +21,10 @@ public class Movies {
     private String movie_description;
     @Column(length = 500, nullable = false)
     private String movie_image_link;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_id")
+    private List<Room> room;
 
 
     public Movies(){}

@@ -24,12 +24,11 @@ import java.util.Map;
 
 /**
  * This is a Spring Boot controller class that handles HTTP requests related to user authentication and logout. It defines two methods:
- *
- *addUser: authenticates a user via a POST request to "/login" and returns a message indicating success, a randomly generated token, and the user's ID. It also saves a record of the user's session in the database.
+ *addUser: authenticates a user via a POST request to "/login" and returns a message indicating success, a randomly generated token, and the user's ID.
+ *It also saves a record of the user's session in the database.
  *logoutUser: logs out a user via a DELETE request to "/logout" and returns a message indicating success. It uses the LoginService to sign the user out.
- *
- * The addUser method checks if the provided username and password match an existing customer's details, throws an exception if they do not match. It uses a secure random number generator to create a token and saves a new CurrentUserSession object in the database to keep track of the user's session.
- *
+ *The addUser method checks if the provided username and password match an existing customer's details, throws an exception if they do not match.
+ * It uses a secure random number generator to create a token and saves a new CurrentUserSession object in the database to keep track of the user's session.
  * The logoutUser method takes a token as a parameter and uses the LoginService to sign the user out and remove their session record from the database.
  */
 @RestController

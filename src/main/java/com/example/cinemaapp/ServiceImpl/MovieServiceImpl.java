@@ -5,7 +5,9 @@ import com.example.cinemaapp.Repository.MovieRepo;
 import com.example.cinemaapp.Service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.awt.print.Pageable;
 import java.util.List;
@@ -29,6 +31,11 @@ public class MovieServiceImpl  implements MovieService {
     public Movies updateMovieDetails(int id, Movies movie) throws Exception {
         Movies savedMovie = getMovieDetails(id);
         return movieRepo.save(savedMovie);
+    }
+
+    public Movies getMovieById(Integer id) {
+        return movieRepo.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found."));
     }
 
     @Override

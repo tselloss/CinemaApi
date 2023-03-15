@@ -28,7 +28,6 @@ public class MovieController {
     ModelMapper modelmapper;
 
 
-
     @GetMapping(value="/movies",produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllMovies() {
         List<Movies> movieList = movieService.getAllMoviesDetails();
@@ -44,7 +43,6 @@ public class MovieController {
         Movies addMovie = movieService.acceptMovieDetails(movies);
         return new ResponseEntity<Movies>(addMovie, HttpStatus.CREATED);
     }
-
     @PutMapping(value="/movies/{id}",consumes= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateMovieDetails(@PathVariable(name = "id") int id, @RequestParam MovieDTO movieDTO) throws Exception{
         Movies newMovie = modelmapper.map(movieDTO, Movies.class);

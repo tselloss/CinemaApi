@@ -1,9 +1,9 @@
 package com.example.cinemaapp.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @Getter
@@ -13,11 +13,12 @@ import lombok.*;
 @EqualsAndHashCode
 @Entity
 public class Room {
-
     @Id
     @GeneratedValue
     private int room_id;
     private String room_name;
     private int num_of_seats;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Seat> seats;
 }

@@ -30,10 +30,5 @@ public class TicketsBooking {
     @OneToOne
     private Tickets ticket;
 
-    @OneToOne
-    private Room room;
-
-    @OneToMany
-    private List<Movies> movies;
 
 }

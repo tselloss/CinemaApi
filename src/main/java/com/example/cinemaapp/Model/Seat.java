@@ -18,4 +18,5 @@ public class Seat {
     @Enumerated(EnumType.STRING)
     private SeatStatus status;
     private Double price;
+    private String date;
 }

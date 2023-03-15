@@ -30,5 +30,4 @@ public class CurrentUserSession {
         this.uuid = uuid;
         this.dateTime = dateTime;
     }
-
 }

@@ -14,19 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * This is a Spring Boot controller class that handles HTTP requests related to customers. It uses dependency injection to inject instances of CustomerService and EmailSenderServiceImpl, and defines several methods:
- *
- *     addCustomerHandler: creates a new customer via a POST request to "/customers" and returns the created customer, while also sending a confirmation email to the customer's email address.
- *     updateCustomerHandler: updates an existing customer via a PUT request to "/customers/{key}" and returns the updated customer.
- *     removeCustomerHandler: deletes an existing customer via a DELETE request to "/customers/{key}" and returns the deleted customer.
- *     getCustomerHandler: retrieves an existing customer via a GET request to "/customers/{customerId}" and returns the customer.
- *     getAllCustomers: retrieves all existing customers via a GET request to "/getallcustomers" and returns a list of customers.
- *
+ *This is a Spring Boot controller class that handles HTTP requests related to customers.
+ *It uses dependency injection to inject instances of CustomerService and EmailSenderServiceImpl, and defines several methods:
+ *addCustomerHandler: creates a new customer via a POST request to "/customers" and returns the created customer, while also sending a confirmation email to the customer's email address.
+ *updateCustomerHandler: updates an existing customer via a PUT request to "/customers/{key}" and returns the updated customer.
+ *removeCustomerHandler: deletes an existing customer via a DELETE request to "/customers/{key}" and returns the deleted customer.
+ *getCustomerHandler: retrieves an existing customer via a GET request to "/customers/{customerId}" and returns the customer.
+ *getAllCustomers: retrieves all existing customers via a GET request to "/getallcustomers" and returns a list of customers.
  * All endpoints expect and return JSON data in the Customer format, and some methods also throw custom exceptions such as CustomerException and LoginException.
  */
 @RestController
 public class CustomerController {
-
 
     @Autowired
     private CustomerService customerService;
