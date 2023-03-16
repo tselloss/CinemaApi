@@ -9,4 +9,6 @@ public interface TicketService {
     List<Tickets> viewAllTickets();
     Tickets viewTicket(Integer id);
 
+    Tickets viewTicketMovieRoomSeats(Tickets tickets);
+
 }

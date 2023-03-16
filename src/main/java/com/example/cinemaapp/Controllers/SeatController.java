@@ -1,25 +1,17 @@
 package com.example.cinemaapp.Controllers;
 
-import com.example.cinemaapp.DTO.MovieDTO;
-import com.example.cinemaapp.DTO.SeatDTO;
-import com.example.cinemaapp.Model.Movies;
-import com.example.cinemaapp.Model.Seat;
-import com.example.cinemaapp.Repository.MovieRepo;
-import com.example.cinemaapp.Repository.SeatRepo;
+import com.example.cinemaapp.Model.*;
+import com.example.cinemaapp.Repository.*;
 import com.example.cinemaapp.Service.MovieService;
+import com.example.cinemaapp.Service.SeatLockedService;
 import com.example.cinemaapp.Service.SeatService;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 public class SeatController {
@@ -27,27 +19,70 @@ public class SeatController {
     @Autowired
     private MovieService movieService;
     @Autowired
-    private MovieRepo movieRepo;
-    @Autowired
     SeatService seatService;
+    @Autowired
+    SeatLockedService seatLockedService;
+
+    @Autowired
+    SeatLockRepo seatLockRepo;
+    @Autowired
+    DatesRepo datesRepo;
 
     @Autowired
     SeatRepo seatRepo;
 
+    @Autowired
+    RoomRepo roomRepo;
+
+    @Autowired
+    MoviesRepo moviesRepo;
+
     @PostMapping("/seat/add")
     public ResponseEntity<Seat> addASeat(@RequestBody Seat seat) throws Exception{
         seat = seatService.addSeat(seat);
-        return new ResponseEntity<>(seat, HttpStatus.CREATED);
+        return ResponseEntity.ok(seat);
     }
 
-    @GetMapping("/seat/{movieId}/{movieName}")
-    public List<Seat> getSeatsByMovieIdAndName(@PathVariable Integer movieId, @RequestParam String movieName) throws Exception {
-        Movies movie = movieService.getMovieById(movieId);
-        if (!movie.getMovieName().equals(movieName)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie name does not match.");
+    @GetMapping("/seat/{movieId}")
+    public Date getDatesByMovieId(@PathParam("id") Integer id) throws Exception {
+        Seat seat= seatRepo.findBySeatId(id);
+        Date date = datesRepo.findByDateId(id);
+        Movie movie= moviesRepo.findMoviesByMovieId(id);
+        Room room= roomRepo.findByRoomId(id);
+        List<Room> roomsList= new ArrayList<>();
+        List<Seat> seatsList= new ArrayList<>();
+        seatsList.add(seat);
+        room.setMovie(movie);
+        room.setSeats(seatsList);
+        roomsList.add(room);
+        date.setRoom(roomsList);
+//        Room room1= new Room();
+//        room1.setSeats(seat);
+//        room1.setMovie(movie);
+//        room.add(room1);
+//        List<Room> dateRoom= new ArrayList<>();
+//        dateRoom.add(room1);
+//        date.setRoom(dateRoom);
+        return date;
+    }
+
+
+    @GetMapping("/seat/lockedSeats")
+    public ResponseEntity<List<Seat>> getLockedSeatsHandler(@RequestParam List<SeatLock> seatLockList ) throws Exception {
+        List<Seat> seats= seatRepo.findAll();
+        System.out.println("Find all seats");
+        for(Seat seat: seats) {
+            for (SeatLock seatLock : seatLockList) {
+               // List<Seat> getLockedSeats = seatLockedService.getAllLockedSeats(seatLock);
+                seatLock.setSeatLockId(seat.getSeatId());
+                seatLock.getSeat().setStatus(SeatStatus.BOOKED);
+                System.out.println("change status");
+                seatLock.setSeat(seat);
+                seatLockRepo.save(seatLock);
+                System.out.println("save repo");
+            }
         }
-        return seatService.getSeatsByMovieId(movieId);
+        System.out.println("After loop");
+        return ResponseEntity.ok(new ArrayList<>());
     }
-
-
 }

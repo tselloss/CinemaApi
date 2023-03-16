@@ -1,17 +1,12 @@
 package com.example.cinemaapp.ServiceImpl;
 
-import com.example.cinemaapp.Model.Movies;
 import com.example.cinemaapp.Model.Seat;
 import com.example.cinemaapp.Model.SeatStatus;
 import com.example.cinemaapp.Repository.SeatRepo;
 import com.example.cinemaapp.Service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 

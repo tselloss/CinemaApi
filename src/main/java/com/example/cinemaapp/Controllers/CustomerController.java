@@ -25,10 +25,8 @@ import java.util.List;
  */
 @RestController
 public class CustomerController {
-
     @Autowired
     private CustomerService customerService;
-
     @Autowired
     private EmailSenderServiceImpl emailSenderService;
 

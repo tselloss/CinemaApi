@@ -1,16 +1,15 @@
 package com.example.cinemaapp.Service;
 
-import com.example.cinemaapp.Model.Movies;
-import org.springframework.data.domain.Page;
+import com.example.cinemaapp.Model.Movie;
+import com.example.cinemaapp.Model.Seat;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 public interface MovieService {
 
-    public Movies acceptMovieDetails(Movies movie);
-    public Movies getMovieDetails(int id) throws Exception;
-    public Movies updateMovieDetails(int id, Movies movie) throws Exception;
-    public Movies getMovieById(Integer id) throws Exception;
-    public List<Movies> getAllMoviesDetails();
+    public Movie acceptMovieDetails(Movie movie);
+    public Movie getMovieDetails(int id) throws Exception;
+    public Movie updateMovieDetails(int id, Movie movie) throws Exception;
+    public Movie getMovieById(Integer id) throws Exception;
+    public List<Movie> getAllMoviesDetails();
 }

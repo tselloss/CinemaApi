@@ -48,17 +48,17 @@ public class TicketController {
 
     @PostMapping("/ticket/{id}/addSeat")
     public Tickets addSeat(@PathVariable("id") Integer id, @RequestBody Seat seat){
-        Tickets t = ticketService.viewTicket(id);
+        Tickets tickets= ticketService.viewTicket(id);
         addSeat(id, seat);
         seatRepo.save(seat);
-        return t;
+        return tickets;
     }
 
     @DeleteMapping("/ticket/{id}/removeSeat")
     public Tickets removeSeat(@PathVariable("id") Integer id, @RequestBody Seat seat){
-        Tickets t = ticketService.viewTicket(id);
-        deleteTicket(t);
+        Tickets tickets = ticketService.viewTicket(id);
+        deleteTicket(tickets);
         seatRepo.delete(seat);
-        return t;
+        return tickets;
     }
 }

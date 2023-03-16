@@ -30,7 +30,6 @@ public class BookingController {
 
     @PostMapping("/booking")
     public TicketsBooking addBooking(@RequestBody TicketsBooking booking){
-
         return bookingService.addBooking(booking);
     }
 

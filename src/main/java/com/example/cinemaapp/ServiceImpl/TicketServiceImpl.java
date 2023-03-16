@@ -42,4 +42,9 @@ public class TicketServiceImpl implements TicketService {
         return ticketsRepo.findById(id).get();
     }
 
+    @Override
+    public Tickets viewTicketMovieRoomSeats(Tickets tickets) {
+       // ticketsRepo.
+        return null;
+    }
 }

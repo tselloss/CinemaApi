@@ -1,5 +1,7 @@
 package com.example.cinemaapp.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,11 +26,12 @@ public class TicketsBooking {
     private String transactionStatus;
     private double totalCost;
 
-    @OneToOne
-    private Customer customer;
+    @OneToMany
+    @JsonManagedReference
+    private List<Tickets> ticket;
 
-    @OneToOne
-    private Tickets ticket;
-
+    @ManyToOne
+    @JsonBackReference
+    private Movie movie;
 
 }

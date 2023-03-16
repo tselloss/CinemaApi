@@ -1,8 +1,6 @@
 package com.example.cinemaapp.Service;
-import com.example.cinemaapp.Model.Movies;
 import com.example.cinemaapp.Model.Seat;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface SeatService {

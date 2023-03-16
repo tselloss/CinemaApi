@@ -34,13 +34,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/users")
 public class LoginController {
-
     private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final int LENGTH = 10;
-
     @Autowired
     private LoginService loginService;
-
     @Autowired
     private CustomerService customerService;
     @Autowired
@@ -65,12 +62,12 @@ public class LoginController {
         LocalDateTime rightNow = LocalDateTime.now();
         CurrentUserSession currentUserSession= new CurrentUserSession(loginDTO.getCustomer_id(), loginDTO.getUsername(),rightNow );
         currentUserSessionRepo.save(currentUserSession);
-        return new ResponseEntity<>(model, HttpStatus.OK);
+        return ResponseEntity.ok(model);
     }
 
     @DeleteMapping("/logout")
     public ResponseEntity<String> logoutUser(@RequestParam String key) throws UserException, LoginException {
         String response = loginService.signOut(key);
-        return new ResponseEntity<String>(response,HttpStatus.OK) ;
+        return ResponseEntity.ok(response);
     }
 }

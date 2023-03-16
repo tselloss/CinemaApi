@@ -1,5 +1,6 @@
 package com.example.cinemaapp.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,4 +20,8 @@ public class Seat {
     private SeatStatus status;
     private Double price;
     private String date;
+
+    @ManyToOne
+    @JsonBackReference
+    private Room room;
 }
