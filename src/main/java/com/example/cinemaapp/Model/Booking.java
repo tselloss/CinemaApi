@@ -1,7 +1,9 @@
 package com.example.cinemaapp.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -10,6 +12,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,24 +21,28 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Seat {
+public class Booking {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int seatId;
-    private String seatNumber;
-    @Enumerated(EnumType.STRING)
-    private SeatStatus status;
-    private Double price;
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private int bookingId;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private LocalDate bookingDate;
 
-    private Integer roomID;
+
+    private String transactionMode;
+    private String transactionStatus;
+    private double totalCost;
+
     @JsonIgnore
     @ManyToOne
-    private Tickets ticket;
+    private Customer customer;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "booking")
+    private Tickets ticket;
 
 }

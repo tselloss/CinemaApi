@@ -34,8 +34,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/users")
 public class LoginController {
-    private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final int LENGTH = 10;
+
     @Autowired
     private LoginService loginService;
     @Autowired
@@ -50,14 +49,8 @@ public class LoginController {
         if (!savedCustomer.getPassword().equals(loginDTO.getPassword())) {
             throw new Exception("Invalid username/password");
         }
-        SecureRandom random = new SecureRandom();
-        StringBuilder sb = new StringBuilder(LENGTH);
-        for (int i = 0; i < LENGTH; i++) {
-            int randomIndex = random.nextInt(CHARACTERS.length());
-            sb.append(CHARACTERS.charAt(randomIndex));
-        }
         model.put("message","Logged in Successfully");
-        model.put("token", sb.toString());
+        model.put("token", savedCustomer.getUsername());
         model.put("customer_id", String.valueOf(savedCustomer.getCustomerId()));
         LocalDateTime rightNow = LocalDateTime.now();
         CurrentUserSession currentUserSession= new CurrentUserSession(loginDTO.getCustomer_id(), loginDTO.getUsername(),rightNow );

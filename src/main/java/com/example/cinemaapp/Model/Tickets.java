@@ -20,17 +20,20 @@ public class Tickets {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int ticketId;
 
-    @ManyToOne
-    @JsonBackReference
-    private Customer customer;
-
+    private int noOfSeats;
     private boolean ticketStatus;
 
-    @OneToOne
-    private TicketsBooking booking;
-
     @OneToMany
-    @JsonManagedReference
-    private List<Seat> seat;
+    private List<Seat> seats;
+    @OneToOne
+    private Booking booking;
 
+
+    public Tickets(int noOfSeats, boolean ticketStatus, List<Seat> seats, Booking booking) {
+        super();
+        this.noOfSeats = noOfSeats;
+        this.ticketStatus = ticketStatus;
+        this.seats = seats;
+        this.booking = booking;
+    }
 }

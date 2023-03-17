@@ -1,6 +1,8 @@
 package com.example.cinemaapp.ServiceImpl;
 
+import com.example.cinemaapp.Model.Booking;
 import com.example.cinemaapp.Model.Tickets;
+import com.example.cinemaapp.Repository.BookingRepo;
 import com.example.cinemaapp.Repository.TicketsRepo;
 import com.example.cinemaapp.Service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,19 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private TicketsRepo ticketsRepo;
 
-    @Override
-    public Tickets addTicket(Tickets ticket) {
+    @Autowired
+    BookingRepo bookingRepo;
 
-        return ticketsRepo.save(ticket);
+    @Override
+    public Tickets addTicket(Tickets ticket,Integer bookingId) {
+        Booking booking=new Booking();
+        if(bookingId!=null) {
+            booking=bookingRepo.findById(bookingId).get();
+            booking.setTransactionStatus("Completed");
+            ticket.setBooking(booking);
+        }
+        ticketsRepo.saveAndFlush(ticket);
+        return ticket;
     }
 
     @Override

@@ -1,10 +1,14 @@
 package com.example.cinemaapp.Controllers;
 
-import com.example.cinemaapp.Model.TicketsBooking;
+import com.example.cinemaapp.Model.Booking;
 import com.example.cinemaapp.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -15,7 +19,7 @@ import java.util.List;
  *addBooking: creates a new booking via a POST request to "/booking" and returns the created booking.
  *updateBooking: updates an existing booking via a PUT request to "/booking" and returns the updated booking.
  *deleteBooking: cancels an existing booking via a DELETE request to "/booking" and returns the cancelled booking.
- * All endpoints expect and return JSON data in the TicketsBooking format.
+ * All endpoints expect and return JSON data in the Booking format.
  */
 
 @RestController
@@ -24,22 +28,42 @@ public class BookingController {
     private BookingService bookingService;
 
     @GetMapping("/bookings")
-    public List<TicketsBooking> getAllBookings(){
+    public List<Booking> getAllBookings(){
         return bookingService.showAllBooking();
     }
 
     @PostMapping("/booking")
-    public TicketsBooking addBooking(@RequestBody TicketsBooking booking){
+    public Booking addBooking(@RequestBody Booking booking){
         return bookingService.addBooking(booking);
     }
 
+    @GetMapping("/viewbooking/{bookingId}")
+    public ResponseEntity<Booking> viewBooking(@PathVariable int bookingId)
+            throws Exception {
+        ResponseEntity<Booking> response = null;
+        try {
+            Booking booking = bookingService.viewBooking(bookingId);
+            response = new ResponseEntity<>(booking, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
+    @GetMapping("/byDate/{date}")
+    public ResponseEntity<List<Booking>> viewMovieByLocalDate(
+            @RequestParam("bookingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date)
+            throws Exception {
+        return ResponseEntity.ok(bookingService.showAllBookings(date));
+    }
+
     @PutMapping("/booking")
-    public TicketsBooking updateBooking(@RequestBody TicketsBooking booking){
+    public Booking updateBooking(@RequestBody Booking booking){
         return bookingService.updateBooking(booking);
     }
 
     @DeleteMapping("/booking")
-    public TicketsBooking deleteBooking(@RequestBody TicketsBooking booking){
+    public Booking deleteBooking(@RequestBody Booking booking){
         return bookingService.cancelBooking(booking);
     }
 }

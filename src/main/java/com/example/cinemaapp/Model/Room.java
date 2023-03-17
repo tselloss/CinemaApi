@@ -36,8 +36,5 @@ public class Room {
     @OneToOne
     private Movie movie;
 
-    @ManyToOne
-    @JsonBackReference
-    private Date date;
 
 }

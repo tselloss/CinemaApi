@@ -32,10 +32,6 @@ public class Customer {
     @Email(message = "Please enter a valid email...")
     private String email;
 
-    @OneToMany
-    @JsonManagedReference
-    private List<Tickets> tickets;
-
 
     public Customer(
             @Size(min = 5, max = 15, message = "Username should be min 5 and max 15 Characters!") String username,

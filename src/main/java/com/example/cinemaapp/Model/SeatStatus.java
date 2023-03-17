@@ -1,7 +1,7 @@
 package com.example.cinemaapp.Model;
 
 public enum SeatStatus {
-    AVAILABLE("Available"), BOOKED("Booked");
+    AVAILABLE("Available"), BOOKED("Booked"),CANCELLED("Canceled");
 
     public String getStatus() {
         return status;

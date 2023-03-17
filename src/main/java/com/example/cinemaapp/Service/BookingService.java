@@ -1,10 +1,14 @@
 package com.example.cinemaapp.Service;
-import com.example.cinemaapp.Model.TicketsBooking;
+import com.example.cinemaapp.Model.Booking;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BookingService {
-    TicketsBooking addBooking(TicketsBooking booking);
-    TicketsBooking updateBooking(TicketsBooking booking);
-    TicketsBooking cancelBooking(TicketsBooking booking);
-    List<TicketsBooking> showAllBooking();
+    Booking addBooking(Booking booking);
+    Booking updateBooking(Booking booking);
+    Booking cancelBooking(Booking booking);
+    List<Booking> showAllBooking();
+    public List<Booking> showAllBookings(LocalDate bookingdate) throws Exception;
+    public Booking viewBooking(int bookingid) throws Exception;
 }

@@ -23,6 +23,7 @@ import java.util.List;
  *getAllCustomers: retrieves all existing customers via a GET request to "/getallcustomers" and returns a list of customers.
  * All endpoints expect and return JSON data in the Customer format, and some methods also throw custom exceptions such as CustomerException and LoginException.
  */
+@CrossOrigin(origins = "*")
 @RestController
 public class CustomerController {
     @Autowired
@@ -30,7 +31,7 @@ public class CustomerController {
     @Autowired
     private EmailSenderServiceImpl emailSenderService;
 
-    @PostMapping("/customers")
+    @PostMapping("/customers/register")
     public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer customer) throws CustomerException{
         Customer addedCustomer = customerService.addCustomer(customer);
         String message = "Dear "+customer.getUsername() +",\n\nThank you for registering with our online cinema movie booking application. We look forward to bringing you the best movie experience.\n\nSincerely,\nThe Online Cinema Movie Booking Shop team";

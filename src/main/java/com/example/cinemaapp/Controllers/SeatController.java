@@ -3,36 +3,26 @@ package com.example.cinemaapp.Controllers;
 import com.example.cinemaapp.Model.*;
 import com.example.cinemaapp.Repository.*;
 import com.example.cinemaapp.Service.MovieService;
-import com.example.cinemaapp.Service.SeatLockedService;
 import com.example.cinemaapp.Service.SeatService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
+
 
 @RestController
 public class SeatController {
 
     @Autowired
-    private MovieService movieService;
-    @Autowired
     SeatService seatService;
-    @Autowired
-    SeatLockedService seatLockedService;
-
-    @Autowired
-    SeatLockRepo seatLockRepo;
-    @Autowired
-    DatesRepo datesRepo;
 
     @Autowired
     SeatRepo seatRepo;
 
-    @Autowired
-    RoomRepo roomRepo;
 
     @Autowired
     MoviesRepo moviesRepo;
@@ -43,46 +33,45 @@ public class SeatController {
         return ResponseEntity.ok(seat);
     }
 
-    @GetMapping("/seat/{movieId}")
-    public Date getDatesByMovieId(@PathParam("id") Integer id) throws Exception {
-        Seat seat= seatRepo.findBySeatId(id);
-        Date date = datesRepo.findByDateId(id);
-        Movie movie= moviesRepo.findMoviesByMovieId(id);
-        Room room= roomRepo.findByRoomId(id);
-        List<Room> roomsList= new ArrayList<>();
-        List<Seat> seatsList= new ArrayList<>();
-        seatsList.add(seat);
-        room.setMovie(movie);
-        room.setSeats(seatsList);
-        roomsList.add(room);
-        date.setRoom(roomsList);
-//        Room room1= new Room();
-//        room1.setSeats(seat);
-//        room1.setMovie(movie);
-//        room.add(room1);
-//        List<Room> dateRoom= new ArrayList<>();
-//        dateRoom.add(room1);
-//        date.setRoom(dateRoom);
-        return date;
+    @GetMapping("/findall")
+    public ResponseEntity<List<Seat>> viewSeatList() throws Exception {
+        return ResponseEntity.ok(seatService.viewSeatList());
+    }
+    @GetMapping("/findByDate/{date}")
+    public ResponseEntity<List<Seat>> viewAllSeatsByDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate date) throws Exception {
+        return ResponseEntity.ok(seatService.showAllSeats(date));
     }
 
+    @GetMapping("/findByDate/{date}/{roomId}")
+    public ResponseEntity<List<Seat>> viewAllSeatsByDateAndRoomId(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate date, @RequestParam("roomId") Integer roomId) throws Exception {
+        return ResponseEntity.ok(seatService.showAllSeatsByDateAndRoom(date,roomId));
+    }
 
-    @GetMapping("/seat/lockedSeats")
-    public ResponseEntity<List<Seat>> getLockedSeatsHandler(@RequestParam List<SeatLock> seatLockList ) throws Exception {
-        List<Seat> seats= seatRepo.findAll();
-        System.out.println("Find all seats");
-        for(Seat seat: seats) {
-            for (SeatLock seatLock : seatLockList) {
-               // List<Seat> getLockedSeats = seatLockedService.getAllLockedSeats(seatLock);
-                seatLock.setSeatLockId(seat.getSeatId());
-                seatLock.getSeat().setStatus(SeatStatus.BOOKED);
-                System.out.println("change status");
-                seatLock.setSeat(seat);
-                seatLockRepo.save(seatLock);
-                System.out.println("save repo");
-            }
+    @PutMapping("/update")
+    public ResponseEntity<Seat> updateSeat(@RequestBody Seat seat) throws Exception {
+        ResponseEntity<Seat> response = null;
+        if (seat == null) {
+            response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            seat = seatService.updateSeat(seat);
+            response = new ResponseEntity<>(seat, HttpStatus.OK);
         }
-        System.out.println("After loop");
-        return ResponseEntity.ok(new ArrayList<>());
+        return response;
+    }
+
+    @PutMapping("/bookSeat")
+    public ResponseEntity<Seat> BookASeat(@RequestBody Seat seat)throws Exception {
+        seat = seatService.bookSeat(seat);
+        return ResponseEntity.ok(seat);
+    }
+
+    @PutMapping("/cancel")
+    public ResponseEntity<Seat> CancelASeat(@RequestBody Seat seat) throws Exception {
+        seat = seatService.cancelSeatBooking(seat);
+        return ResponseEntity.ok(seat);
     }
 }

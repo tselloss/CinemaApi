@@ -6,6 +6,7 @@ import com.example.cinemaapp.Model.Tickets;
 import com.example.cinemaapp.Repository.SeatRepo;
 import com.example.cinemaapp.Service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +27,17 @@ public class TicketController {
     @Autowired
     private SeatRepo seatRepo;
 
-    @GetMapping("/tickets")
-    public List<Tickets> getAllTickets(){
-        return ticketService.viewAllTickets();
+    @GetMapping("/getAllTickets")
+    public ResponseEntity<List<Tickets>> getAllTickets(){
+        return ResponseEntity.ok(ticketService.viewAllTickets());
     }
 
-    @PostMapping("/ticket")
-    public Tickets addTicket(@RequestBody Tickets ticket){
-        return ticketService.addTicket(ticket);
+    @PostMapping("/add")
+    public ResponseEntity<Tickets> addATicket(@RequestBody Tickets ticket,@RequestParam(required = false) Integer bookingId)
+            throws Exception {
+
+        ticket = ticketService.addTicket(ticket,bookingId);
+        return ResponseEntity.ok(ticket);
     }
 
     @PutMapping("/ticket")

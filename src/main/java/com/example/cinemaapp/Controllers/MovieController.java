@@ -41,13 +41,13 @@ public class MovieController {
     @PostMapping(value="/movies/add",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
     public ResponseEntity newMovie(@RequestBody Movie movie) throws Exception {
         Movie addMovie = movieService.acceptMovieDetails(movie);
-        return new ResponseEntity<Movie>(addMovie, HttpStatus.CREATED);
+        return ResponseEntity.ok(addMovie);
     }
     @PutMapping(value="/movies/{id}",consumes= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateMovieDetails(@PathVariable(name = "id") int id, @RequestParam MovieDTO movieDTO) throws Exception{
         Movie newMovie = modelmapper.map(movieDTO, Movie.class);
         Movie updatedMovie = movieService.updateMovieDetails(id, newMovie);
         MovieDTO updatedMovieDTO = modelmapper.map(updatedMovie, MovieDTO.class);
-        return new ResponseEntity<>(updatedMovieDTO,HttpStatus.OK);
+        return ResponseEntity.ok(updatedMovieDTO);
     }
 }
