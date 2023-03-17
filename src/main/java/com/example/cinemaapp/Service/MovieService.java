@@ -11,5 +11,6 @@ public interface MovieService {
     public Movie getMovieDetails(int id) throws Exception;
     public Movie updateMovieDetails(int id, Movie movie) throws Exception;
     public Movie getMovieById(Integer id) throws Exception;
+    public Movie addMovieToShow(Movie movie, Integer showId) throws Exception;
     public List<Movie> getAllMoviesDetails();
 }

@@ -2,7 +2,10 @@ package com.example.cinemaapp.Controllers;
 
 import com.example.cinemaapp.DTO.MovieDTO;
 import com.example.cinemaapp.Model.Movie;
+import com.example.cinemaapp.Model.Seat;
+import com.example.cinemaapp.Model.SeatStatus;
 import com.example.cinemaapp.Service.MovieService;
+import com.example.cinemaapp.Service.SeatService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,8 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is a Spring REST Controller class for managing movie related operations.
@@ -28,6 +34,9 @@ public class MovieController {
     @Autowired
     ModelMapper modelmapper;
 
+    @Autowired
+    private SeatService seatService;
+
 
     @GetMapping(value="/getAllMovies",produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllMovies() {
@@ -40,10 +49,32 @@ public class MovieController {
     }
 
     @PostMapping(value="/addMovie/add",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
-    public ResponseEntity newMovie(@RequestBody Movie movie) throws Exception {
+    public ResponseEntity addNewMovie(@RequestBody Movie movie, LocalDate date) throws Exception {
+        List<Seat> seats = new ArrayList<>();
+        for (int i=0; i<30; i++) {
+            Seat seat= new Seat();
+            seat.setStatus(SeatStatus.AVAILABLE);
+            seat.setSeatNumber(String.valueOf(i+1));
+            seat.setPrice(10.0);
+            seat.setDate(date);
+            seat.setRoomID(1);
+            Seat addseat = seatService.addSeat(seat);
+            seats.add(addseat);
+        }
         Movie addMovie = movieService.acceptMovieDetails(movie);
-        return ResponseEntity.ok(addMovie);
+        Map<String, Object> response = new HashMap<>();
+        response.put("seats", seats);
+        response.put("movie", addMovie);
+        return ResponseEntity.ok(response);
     }
+
+    @PostMapping(value = "/map", consumes = "application/json")
+    public ResponseEntity<Movie> addToShow(@RequestBody Movie movie,@RequestParam Integer showId)
+            throws Exception {
+        movie = movieService.addMovieToShow(movie,showId);
+        return ResponseEntity.ok(movie);
+    }
+
     @PutMapping(value="/updateMovie/{id}",consumes= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateMovieDetails(@PathVariable(name = "id") int id, @RequestParam MovieDTO movieDTO) throws Exception{
         Movie newMovie = modelmapper.map(movieDTO, Movie.class);

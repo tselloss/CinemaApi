@@ -17,8 +17,7 @@ import java.util.List;
 public class Tickets {
 
     @Id
-    @SequenceGenerator(name="yourSequenceGenerator", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="yourSequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int ticketId;
 
     private int noOfSeats;

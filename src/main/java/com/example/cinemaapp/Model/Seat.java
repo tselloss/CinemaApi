@@ -20,8 +20,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class Seat {
     @Id
-    @SequenceGenerator(name="yourSequenceGenerator", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="yourSequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int seatId;
     private String seatNumber;
     @Enumerated(EnumType.STRING)

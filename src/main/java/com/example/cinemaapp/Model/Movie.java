@@ -33,13 +33,19 @@ public class Movie {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate movieDate;
 
+    @JsonIgnore
+    @OneToOne
+    private Show show;
 
     public Movie(){}
 
-    public Movie(String movieName, String movie_description, String movie_image_link, String trailerURL) {
+    public Movie(Integer movieId, String movieName, String movie_description, String movie_image_link, LocalDate movieDate, Show show) {
+        this.movieId = movieId;
         this.movieName = movieName;
         this.movie_description = movie_description;
         this.movie_image_link = movie_image_link;
+        this.movieDate = movieDate;
+        this.show = show;
     }
 
     public void setMovieId(Integer movieId) {

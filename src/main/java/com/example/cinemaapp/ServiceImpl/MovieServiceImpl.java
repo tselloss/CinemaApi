@@ -1,8 +1,10 @@
 package com.example.cinemaapp.ServiceImpl;
 
 import com.example.cinemaapp.Model.Movie;
+import com.example.cinemaapp.Model.Show;
 import com.example.cinemaapp.Repository.MoviesRepo;
 import com.example.cinemaapp.Service.MovieService;
+import com.example.cinemaapp.Service.ShowRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.List;
 public class MovieServiceImpl  implements MovieService {
     @Autowired
     private MoviesRepo moviesRepo;
+    @Autowired
+    private ShowRepo showRepo;
 
     @Override
     public Movie acceptMovieDetails(Movie movie) {
@@ -41,5 +45,14 @@ public class MovieServiceImpl  implements MovieService {
         return moviesRepo.findAll();
     }
 
-
+    @Override
+    public Movie addMovieToShow(Movie movie, Integer showId) throws Exception {
+        Show show=new Show();
+        if (showId != null) {
+            show = showRepo.getOne(showId);
+            movie.setShow(show);
+        }
+        moviesRepo.saveAndFlush(movie);
+        return moviesRepo.getOne(movie.getMovieId());
+    }
 }

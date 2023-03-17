@@ -21,11 +21,10 @@ import java.time.LocalDate;
 @DynamicUpdate
 public class Show {
     @Id
-    @SequenceGenerator(name="yourSequenceGenerator", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="yourSequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int showId;
 
-    @OneToOne
+    @OneToOne(mappedBy = "show")
     private Movie movie;
 
 
