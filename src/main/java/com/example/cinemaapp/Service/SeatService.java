@@ -18,5 +18,6 @@ public interface SeatService {
     public List<Seat> showAllSeats(LocalDate seatDate) throws Exception;
 
     public List<Seat> showAllSeatsByDateAndRoom(LocalDate date,Integer roomId) throws Exception;
+    public List<Seat> showAllSeatsByDateAndMovieId(LocalDate date,Integer movieId) throws  Exception;
 
 }

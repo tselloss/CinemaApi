@@ -85,4 +85,26 @@ public class SeatServiceImpl implements SeatService {
             return seatList;
         }
     }
+
+    @Override
+    public List<Seat>  showAllSeatsByDateAndMovieId (LocalDate date, Integer movieId) throws Exception {
+        List<Seat> seatList = new ArrayList<>();
+        for (Seat seat : seatRepo.findAll()) {
+            System.out.println("I got find all seatRepo");
+
+            if (seat.getMovieId() != null && seat.getMovieId()==(movieId)) {
+                System.out.println(movieId);
+                System.out.println(seat);
+                System.out.println(seat.getMovieId());
+                if (seat.getDate().isEqual(date)) {
+                    seatList.add(seat);
+                }
+            }
+        }
+        if (seatList.size() == 0)
+            throw new Exception("No bookings found with this date and MovieId");
+        else {
+            return seatList;
+        }
+    }
 }

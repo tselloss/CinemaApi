@@ -22,6 +22,16 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int seatId;
+
+    public Integer getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(Integer movieId) {
+        this.movieId = movieId;
+    }
+
+    private Integer movieId;
     private String seatNumber;
     @Enumerated(EnumType.STRING)
     private SeatStatus status;
@@ -32,10 +42,12 @@ public class Seat {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
 
+
     private Integer roomID;
     @JsonIgnore
     @ManyToOne
     private Tickets ticket;
+
 
 
 }

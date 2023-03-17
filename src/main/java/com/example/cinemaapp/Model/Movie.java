@@ -37,6 +37,7 @@ public class Movie {
     @OneToOne
     private Show show;
 
+
     public Movie(){}
 
     public Movie(Integer movieId, String movieName, String movie_description, String movie_image_link, LocalDate movieDate, Show show) {

@@ -51,6 +51,14 @@ public class SeatController {
         return ResponseEntity.ok(seatService.showAllSeatsByDateAndRoom(date,roomId));
     }
 
+
+    @GetMapping("/findByMovieIdAndDate/{movieId}/{date}")
+    public ResponseEntity<List<Seat>> viewAllSeatsByMovieIdAndDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate date, @RequestParam("movieId") Integer movieId) throws Exception {
+        return ResponseEntity.ok(seatService.showAllSeatsByDateAndMovieId(date,movieId));
+    }
+
     @PutMapping("/updateSeat")
     public ResponseEntity<Seat> updateSeat(@RequestBody Seat seat) throws Exception {
         ResponseEntity<Seat> response = null;

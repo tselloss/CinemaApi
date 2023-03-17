@@ -8,6 +8,7 @@ import com.example.cinemaapp.Service.MovieService;
 import com.example.cinemaapp.Service.SeatService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -49,11 +50,13 @@ public class MovieController {
     }
 
     @PostMapping(value="/addMovie/add",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
-    public ResponseEntity addNewMovie(@RequestBody Movie movie, LocalDate date,Integer roomId) throws Exception {
+    public ResponseEntity addNewMovie(@RequestBody Movie movie,@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws Exception {
         List<Seat> seats = new ArrayList<>();
+        for(int roomId=1 ; roomId<3 ; roomId++)
         for (int i=0; i<30; i++) {
             Seat seat= new Seat();
             seat.setStatus(SeatStatus.AVAILABLE);
+            seat.setMovieId(movie.getMovieId());
             seat.setSeatNumber(String.valueOf(i+1));
             seat.setPrice(10.0);
             seat.setDate(date);
