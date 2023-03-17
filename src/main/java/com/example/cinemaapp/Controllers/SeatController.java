@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-@CrossOrigin(origins = "*")
 @RestController
 public class SeatController {
 
@@ -52,7 +51,7 @@ public class SeatController {
         return ResponseEntity.ok(seatService.showAllSeatsByDateAndRoom(date,roomId));
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateSeat")
     public ResponseEntity<Seat> updateSeat(@RequestBody Seat seat) throws Exception {
         ResponseEntity<Seat> response = null;
         if (seat == null) {
@@ -70,7 +69,7 @@ public class SeatController {
         return ResponseEntity.ok(seat);
     }
 
-    @PutMapping("/cancel")
+    @PutMapping("/cancelSeat")
     public ResponseEntity<Seat> CancelASeat(@RequestBody Seat seat) throws Exception {
         seat = seatService.cancelSeatBooking(seat);
         return ResponseEntity.ok(seat);

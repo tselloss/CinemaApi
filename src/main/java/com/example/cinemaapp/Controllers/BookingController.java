@@ -22,23 +22,22 @@ import java.util.List;
  * All endpoints expect and return JSON data in the Booking format.
  */
 
-@CrossOrigin(origins = "*")
 @RestController
 public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping("/bookings")
+    @GetMapping("/getAllBookings")
     public ResponseEntity<List<Booking>> getAllBookings(){
         return ResponseEntity.ok(bookingService.showAllBooking());
     }
 
-    @PostMapping("/booking")
+    @PostMapping("/addBooking")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking){
         return ResponseEntity.ok(bookingService.addBooking(booking));
     }
 
-    @GetMapping("/viewbooking/{bookingId}")
+    @GetMapping("/viewBooking/{bookingId}")
     public ResponseEntity<Booking> viewBooking(@PathVariable int bookingId)
             throws Exception {
         ResponseEntity<Booking> response = null;
@@ -58,12 +57,12 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.showAllBookings(date));
     }
 
-    @PutMapping("/booking")
+    @PutMapping("/updateBooking")
     public ResponseEntity<Booking> updateBooking(@RequestBody Booking booking){
         return ResponseEntity.ok(bookingService.updateBooking(booking));
     }
 
-    @DeleteMapping("/booking")
+    @DeleteMapping("/deleteBooking")
     public ResponseEntity<Booking> deleteBooking(@RequestBody Booking booking){
         return ResponseEntity.ok(bookingService.cancelBooking(booking));
     }

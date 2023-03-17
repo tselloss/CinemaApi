@@ -20,7 +20,7 @@ import java.util.List;
  * .The getAllMovies endpoint returns a list of MovieDTOs, the newMovie endpoint adds a new movie and returns the added movie,
  * and the updateMovieDetails endpoint updates an existing movie and returns the updated movie details in a MovieDTO format.
  */
-@CrossOrigin(origins = "*")
+
 @RestController
 public class MovieController {
     @Autowired
@@ -29,7 +29,7 @@ public class MovieController {
     ModelMapper modelmapper;
 
 
-    @GetMapping(value="/movies",produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/getAllMovies",produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllMovies() {
         List<Movie> movieList = movieService.getAllMoviesDetails();
         List<MovieDTO> movieDTOList = new ArrayList<>();
@@ -39,12 +39,12 @@ public class MovieController {
         return new ResponseEntity<>(movieDTOList, HttpStatus.OK);
     }
 
-    @PostMapping(value="/movies/add",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
+    @PostMapping(value="/addMovie/add",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
     public ResponseEntity newMovie(@RequestBody Movie movie) throws Exception {
         Movie addMovie = movieService.acceptMovieDetails(movie);
         return ResponseEntity.ok(addMovie);
     }
-    @PutMapping(value="/movies/{id}",consumes= MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value="/updateMovie/{id}",consumes= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateMovieDetails(@PathVariable(name = "id") int id, @RequestParam MovieDTO movieDTO) throws Exception{
         Movie newMovie = modelmapper.map(movieDTO, Movie.class);
         Movie updatedMovie = movieService.updateMovieDetails(id, newMovie);

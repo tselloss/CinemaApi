@@ -20,7 +20,7 @@ import java.util.List;
  * and the SeatRepo to persist seat data to a database.
  * The HTTP methods used in this API include GET, POST, PUT, and DELETE.
  */
-@CrossOrigin(origins = "*")
+
 @RestController
 public class TicketController {
     @Autowired
@@ -33,7 +33,7 @@ public class TicketController {
         return ResponseEntity.ok(ticketService.viewAllTickets());
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addTicker")
     public ResponseEntity<Tickets> addATicket(@RequestBody Tickets ticket,@RequestParam(required = false) Integer bookingId)
             throws Exception {
 
@@ -41,12 +41,12 @@ public class TicketController {
         return ResponseEntity.ok(ticket);
     }
 
-    @PutMapping("/ticket")
+    @PutMapping("/updateTicket")
     public Tickets updateTicket(@RequestBody Tickets ticket){
         return ticketService.updateTicket(ticket);
     }
 
-    @DeleteMapping("/ticket")
+    @DeleteMapping("/deleteTicket")
     public Tickets deleteTicket(@RequestBody Tickets ticket){
         return ticketService.removeTicket(ticket);
     }

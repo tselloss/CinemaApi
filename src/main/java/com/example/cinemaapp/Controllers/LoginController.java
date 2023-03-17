@@ -32,7 +32,6 @@ import java.util.Map;
  * The logoutUser method takes a token as a parameter and uses the LoginService to sign the user out and remove their session record from the database.
  */
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/users")
 public class LoginController {
 

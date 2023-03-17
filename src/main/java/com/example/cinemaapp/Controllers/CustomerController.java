@@ -23,35 +23,36 @@ import java.util.List;
  *getAllCustomers: retrieves all existing customers via a GET request to "/getallcustomers" and returns a list of customers.
  * All endpoints expect and return JSON data in the Customer format, and some methods also throw custom exceptions such as CustomerException and LoginException.
  */
-@CrossOrigin(origins = "*")
+
 @RestController
+@RequestMapping("/customers")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
     @Autowired
     private EmailSenderServiceImpl emailSenderService;
 
-    @PostMapping("/customers/register")
-    public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer customer) throws CustomerException{
+    @PostMapping(value = "/register", produces ="application/json")
+    public ResponseEntity<Customer> addCustomerHandler(@RequestBody Customer customer) throws CustomerException{
         Customer addedCustomer = customerService.addCustomer(customer);
         String message = "Dear "+customer.getUsername() +",\n\nThank you for registering with our online cinema movie booking application. We look forward to bringing you the best movie experience.\n\nSincerely,\nThe Online Cinema Movie Booking Shop team";
         emailSenderService.sendEmail(customer.getEmail(),"Registry confirmation",message);
         return new ResponseEntity<Customer>(addedCustomer, HttpStatus.CREATED);
     }
 
-    @PutMapping("/customers/{key}")
+    @PutMapping("/{key}")
     public ResponseEntity<Customer> updateCustomerHandler(@PathVariable("key") String key,@RequestBody Customer customer) throws LoginException, CustomerException{
         Customer updatedCustomer = customerService.updateCustomer(customer, key);
         return new ResponseEntity<Customer>(updatedCustomer, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/customers/{key}")
+    @DeleteMapping("/{key}")
     public ResponseEntity<Customer> removeCustomerHandler(@PathVariable("key") String key,@RequestBody Customer customer) throws CustomerException, LoginException{
         Customer deletedCustomer = customerService.removeCustomer(customer, key);
         return new ResponseEntity<Customer>(deletedCustomer, HttpStatus.OK);
     }
 
-    @GetMapping("/customers/{customerid}")
+    @GetMapping("/{customerid}")
     public ResponseEntity<Customer> getCustomerHandler(@PathVariable("customerid") Integer customerId) throws CustomerException{
         Customer existingCustomer = customerService.viewCustomer(customerId);
         return new ResponseEntity<Customer>(existingCustomer, HttpStatus.OK);
