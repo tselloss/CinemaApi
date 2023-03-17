@@ -20,6 +20,7 @@ import java.util.List;
  * .The getAllMovies endpoint returns a list of MovieDTOs, the newMovie endpoint adds a new movie and returns the added movie,
  * and the updateMovieDetails endpoint updates an existing movie and returns the updated movie details in a MovieDTO format.
  */
+@CrossOrigin(origins = "*")
 @RestController
 public class MovieController {
     @Autowired

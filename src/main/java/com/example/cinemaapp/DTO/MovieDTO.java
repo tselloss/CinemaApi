@@ -1,19 +1,19 @@
 package com.example.cinemaapp.DTO;
 
 public class MovieDTO {
-        int movie_id;
+        int movieId;
         String movieName;
         String movie_description;
 
         String movie_image_link;
 
 
-        public int getMovie_id() {
-            return movie_id;
+        public int getMovieId() {
+            return movieId;
         }
 
-        public void setMovie_id(int movie_id) {
-            this.movie_id = movie_id;
+        public void setMovieId(int movieId) {
+            this.movieId = movieId;
         }
 
         public String getMovieName() {

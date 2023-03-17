@@ -20,6 +20,7 @@ import java.util.List;
  * and the SeatRepo to persist seat data to a database.
  * The HTTP methods used in this API include GET, POST, PUT, and DELETE.
  */
+@CrossOrigin(origins = "*")
 @RestController
 public class TicketController {
     @Autowired

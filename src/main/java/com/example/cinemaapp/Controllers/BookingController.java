@@ -22,19 +22,20 @@ import java.util.List;
  * All endpoints expect and return JSON data in the Booking format.
  */
 
+@CrossOrigin(origins = "*")
 @RestController
 public class BookingController {
     @Autowired
     private BookingService bookingService;
 
     @GetMapping("/bookings")
-    public List<Booking> getAllBookings(){
-        return bookingService.showAllBooking();
+    public ResponseEntity<List<Booking>> getAllBookings(){
+        return ResponseEntity.ok(bookingService.showAllBooking());
     }
 
     @PostMapping("/booking")
-    public Booking addBooking(@RequestBody Booking booking){
-        return bookingService.addBooking(booking);
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking){
+        return ResponseEntity.ok(bookingService.addBooking(booking));
     }
 
     @GetMapping("/viewbooking/{bookingId}")
@@ -58,12 +59,12 @@ public class BookingController {
     }
 
     @PutMapping("/booking")
-    public Booking updateBooking(@RequestBody Booking booking){
-        return bookingService.updateBooking(booking);
+    public ResponseEntity<Booking> updateBooking(@RequestBody Booking booking){
+        return ResponseEntity.ok(bookingService.updateBooking(booking));
     }
 
     @DeleteMapping("/booking")
-    public Booking deleteBooking(@RequestBody Booking booking){
-        return bookingService.cancelBooking(booking);
+    public ResponseEntity<Booking> deleteBooking(@RequestBody Booking booking){
+        return ResponseEntity.ok(bookingService.cancelBooking(booking));
     }
 }

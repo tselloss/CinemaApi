@@ -21,15 +21,13 @@ import java.time.LocalDate;
 @DynamicUpdate
 public class Show {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="yourSequenceGenerator", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="yourSequenceGenerator")
     private int showId;
 
     @OneToOne
     private Movie movie;
 
-    @JsonIgnore
-    @ManyToOne
-    private Room room;
 
     @JsonIgnore
     @OneToOne
@@ -37,15 +35,14 @@ public class Show {
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate showDate;
 
     public Show(){}
 
-    public Show(int showId, Movie movie, Room room, Booking booking, LocalDate showDate) {
+    public Show(int showId, Movie movie, Booking booking, LocalDate showDate) {
         this.showId = showId;
         this.movie = movie;
-        this.room = room;
         this.booking = booking;
         this.showDate = showDate;
     }

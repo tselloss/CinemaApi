@@ -18,7 +18,8 @@ import java.util.Objects;
 @Setter
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="yourSequenceGenerator", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="yourSequenceGenerator")
     private Integer movieId;
     @Column(length = 1333, nullable = false, unique = true)
     private String movieName;
@@ -41,6 +42,13 @@ public class Movie {
         this.movie_image_link = movie_image_link;
     }
 
+    public void setMovieId(Integer movieId) {
+        this.movieId = movieId;
+    }
+
+    public Integer getMovieId() {
+        return movieId;
+    }
 
     @Override
     public boolean equals(Object o) {

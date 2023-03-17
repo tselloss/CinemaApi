@@ -16,7 +16,8 @@ import java.util.List;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="yourSequenceGenerator", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="yourSequenceGenerator")
     private Integer customerId;
 
     @Size(min = 5, max = 15, message = "Username should be min 5 and max 15 Characters!")

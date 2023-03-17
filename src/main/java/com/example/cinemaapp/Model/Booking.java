@@ -24,7 +24,8 @@ import java.util.List;
 public class Booking {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @SequenceGenerator(name="yourSequenceGenerator", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="yourSequenceGenerator")
     private int bookingId;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
