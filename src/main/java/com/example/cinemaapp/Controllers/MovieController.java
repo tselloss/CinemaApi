@@ -49,7 +49,7 @@ public class MovieController {
     }
 
     @PostMapping(value="/addMovie/add",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
-    public ResponseEntity addNewMovie(@RequestBody Movie movie, LocalDate date) throws Exception {
+    public ResponseEntity addNewMovie(@RequestBody Movie movie, LocalDate date,Integer roomId) throws Exception {
         List<Seat> seats = new ArrayList<>();
         for (int i=0; i<30; i++) {
             Seat seat= new Seat();
@@ -57,7 +57,7 @@ public class MovieController {
             seat.setSeatNumber(String.valueOf(i+1));
             seat.setPrice(10.0);
             seat.setDate(date);
-            seat.setRoomID(1);
+            seat.setRoomID(roomId);
             Seat addseat = seatService.addSeat(seat);
             seats.add(addseat);
         }
