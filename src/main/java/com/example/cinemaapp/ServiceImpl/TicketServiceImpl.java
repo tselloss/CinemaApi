@@ -12,7 +12,17 @@ import java.util.List;
 
 @Service
 public class TicketServiceImpl implements TicketService {
-
+    /**
+     *     addTicket: Adds a new ticket to the system, associated with a given booking ID. If the booking ID is provided,
+     *     it fetches the associated booking from the database and updates its transaction status to "Completed".
+     *     Then, it saves the new ticket to the database and returns it.
+     *
+     *     updateTicket: Updates an existing ticket in the database with the given ticket object and returns it.
+     *     removeTicket: Deletes an existing ticket from the database and returns it.
+     *     viewAllTickets: Returns a list of all tickets in the system.
+     *     viewTicket: Returns a single ticket with the given ID.
+     *     viewTicketMovieRoomSeats: This method is currently empty and doesn't do anything.
+     */
     @Autowired
     private TicketsRepo ticketsRepo;
 

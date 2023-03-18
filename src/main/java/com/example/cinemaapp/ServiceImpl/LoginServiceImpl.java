@@ -20,6 +20,22 @@ import java.util.Random;
 @Service
 public class LoginServiceImpl implements LoginService {
 
+    /**
+     * The CustomerRepo is a repository for customers and is likely used to retrieve customer information for authentication.
+     * The CurrentUserSessionRepo is a repository for tracking active user sessions.
+     * The CurrentCustomerService is a service used to retrieve customer details based on a key, which is likely a session key.
+     *
+     * The addUser method is used to add a user to the system by checking if a customer exists with the given userId,
+     * checking if the user is already logged in, and then creating a new CurrentUserSession and saving it to the repository.
+     *
+     * The signOut method is used to log out a user by deleting their session from the repository.
+     *
+     * The validateUser method is used to validate a user's credentials by retrieving their session information,
+     * retrieving the associated customer information, and then comparing the user's credentials with the customer's information.
+     *
+     * The removeUser method is currently unimplemented and would likely be used to remove a user from the system by
+     * deleting their associated CurrentUserSession.
+     */
     @Autowired
     CustomerRepo customerRepo;
 

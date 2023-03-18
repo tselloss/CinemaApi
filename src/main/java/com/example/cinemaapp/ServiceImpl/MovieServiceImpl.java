@@ -14,6 +14,29 @@ import java.util.List;
 
 @Service
 public class MovieServiceImpl  implements MovieService {
+    /**
+     * The class contains methods to accept and retrieve movie details, update movie details,
+     * get a movie by its ID, get all movie details, and add a movie to a show.
+     *
+     * The acceptMovieDetails method accepts a Movie object and saves it to the database using the MoviesRepo.
+     *
+     * The getMovieDetails method retrieves the Movie object with the given ID from the database using the MoviesRepo.
+     * If the movie is not found, it throws an Exception.
+     *
+     * The updateMovieDetails method updates the Movie object with the given ID in the database using the MoviesRepo.
+     * It first calls the getMovieDetails method to retrieve the movie,
+     * updates its attributes using the new Movie object, and then saves it to the database.
+     *
+     * The getMovieById method retrieves the Movie object with the given ID from the database using the MoviesRepo.
+     * If the movie is not found, it throws a ResponseStatusException with a NOT_FOUND HTTP status.
+     *
+     * The getAllMoviesDetails method retrieves all Movie objects from the database using the MoviesRepo.
+     *
+     * The addMovieToShow method adds a Movie object to a Show object and saves both to the database using the MoviesRepo and ShowRepo, respectively.
+     * It first retrieves the Show object with the given showId using the ShowRepo and sets it to the Movie object's show attribute.
+     * It then saves the Movie object to the database using the MoviesRepo and returns the updated Movie object.
+     */
+
     @Autowired
     private MoviesRepo moviesRepo;
     @Autowired

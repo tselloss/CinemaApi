@@ -13,7 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class RoomServiceImpl implements RoomService {
-
+    /**
+     *     getAllRoom() - retrieves all the rooms from the Room repository and returns a list of rooms.
+     *     findRoom(int roomId) - finds and returns the room with the given roomId from the Room repository.
+     *
+     *     addRoom(Room) - adds a new room to the Room repository if the room does not already exist.
+     *
+     *     updateRoom(Room) - updates the room in the Room repository with the given room object.
+     *
+     *     deleteRoomById(int roomId) - deletes the room with the given roomId from the Room repository.
+     *
+     *     findRoomByMovie(Integer movieId) - retrieves all the rooms from the Room repository that are showing the movie with the given movieId.
+     *     This is done by first finding the show with the given movieId in the Movies repository, and then checking which rooms have that show.
+     */
     @Autowired
     private RoomRepo roomRepo;
     @Autowired

@@ -54,8 +54,8 @@ public class SeatController {
 
     @GetMapping("/findByMovieIdAndDate/{movieId}/{date}")
     public ResponseEntity<List<Seat>> viewAllSeatsByMovieIdAndDate(
-            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            LocalDate date, @RequestParam("movieId") Integer movieId) throws Exception {
+            @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                    String date, @PathVariable("movieId") Integer movieId) throws Exception {
         return ResponseEntity.ok(seatService.showAllSeatsByDateAndMovieId(date,movieId));
     }
 

@@ -14,9 +14,25 @@ import java.util.Optional;
 @Service
 public class CurrentCustomerServiceImpl implements CurrentCustomerService {
 
+
+
     @Autowired
     private CurrentUserSessionRepo currentUserSessionRepo;
 
+    /**
+     *     getCurrentCustomerSession(String key) retrieves the current user session by calling the findByUuid()
+     *     method of an injected currentUserSessionRepo instance with the specified key.
+     *     If no user session is found, a LoginException is thrown.
+     *
+     *     getCurrentCustomerId(String key) retrieves the current customer ID from the current user session
+     *     by calling the findByUuid() method of an injected currentUserSessionRepo instance with the specified key,
+     *     and returns the corresponding customer ID. If no user session is found, a LoginException is thrown.
+     *
+     *     getCustomerDetails(String key) retrieves the customer details for the current user session by calling
+     *     the findByUuid() method of an injected currentUserSessionRepo instance with the specified key to obtain the
+     *     corresponding customer ID, and then calling the findById() method of an injected customerRepo instance with
+     *     the customer ID to retrieve the corresponding customer object. If no user session is found, a LoginException is thrown.
+     */
     @Autowired
     private CustomerRepo customerRepo;
 

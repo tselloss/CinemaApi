@@ -12,7 +12,29 @@ import java.util.List;
 
 @Service
 public class BookingServiceImpl implements BookingService {
-
+    /**
+     * The class provides several methods for managing bookings:
+     *
+     * addBooking(Booking) creates a new booking by calling the save() method of
+     * the injected bookingRepo instance and returns the saved booking object.
+     *
+     *updateBooking(Booking) updates an existing booking by calling
+     *the save() method of the injected bookingRepo instance and returns the updated booking object.
+     *
+     *cancelBooking(Booking) cancels an existing booking by calling to delete() method of
+     *the injected bookingRepo instance and returns the cancelled booking object.
+     *
+     *showAllBooking() retrieves all bookings by calling the findAll() method of the
+     *injected bookingRepo instance and returns a list of booking objects.
+     *
+     *showAllBookings(LocalDate bookingdate) retrieves all bookings for a specific
+     *date by iterating through all bookings retrieved from the injected bookingRepo instance and
+     *adding those with a matching date to a list. If no bookings are found for the specified date, an exception is thrown.
+     *
+     *viewBooking(int bookingid) retrieves a specific booking by calling the findById() method of the
+     *injected bookingRepo instance with the specified booking ID and returns the corresponding booking object.
+     *If no booking is found with the specified ID, an exception is thrown.
+     */
     @Autowired
     private BookingRepo bookingRepo;
 

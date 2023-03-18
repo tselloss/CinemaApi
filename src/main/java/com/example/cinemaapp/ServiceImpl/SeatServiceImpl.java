@@ -13,7 +13,16 @@ import java.util.List;
 
 @Service
 public class SeatServiceImpl implements SeatService {
-
+    /**
+     *     addSeat: Adds a new seat to the database. Throws an exception if a seat with the same ID already exists.
+     *     bookSeat: Marks a seat as booked.
+     *     updateSeat: Updates an existing seat in the database.
+     *     cancelSeatBooking: Marks a booked seat as cancelled.
+     *     viewSeatList: Retrieves a list of all seats in the database.
+     *     showAllSeats: Retrieves a list of all seats booked for a given date.
+     *     showAllSeatsByDateAndRoom: Retrieves a list of all seats booked for a given date and room.
+     *     showAllSeatsByDateAndMovieId: Retrieves a list of all seats booked for a given date and movie.
+     */
 
     @Autowired
     private SeatRepo seatRepo;
@@ -87,7 +96,8 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public List<Seat>  showAllSeatsByDateAndMovieId (LocalDate date, Integer movieId) throws Exception {
+    public List<Seat> showAllSeatsByDateAndMovieId(String dateString, Integer movieId) throws Exception {
+        LocalDate date = LocalDate.parse(dateString);
         List<Seat> seatList = new ArrayList<>();
         for (Seat seat : seatRepo.findAll()) {
             System.out.println("I got find all seatRepo");
@@ -101,10 +111,11 @@ public class SeatServiceImpl implements SeatService {
                 }
             }
         }
-        if (seatList.size() == 0)
+        if (seatList.size() == 0) {
             throw new Exception("No bookings found with this date and MovieId");
-        else {
+        } else {
             return seatList;
         }
     }
+
 }

@@ -50,7 +50,7 @@ public class MovieController {
     }
 
     @PostMapping(value="/addMovie/add",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
-    public ResponseEntity addNewMovie(@RequestBody Movie movie,@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws Exception {
+    public ResponseEntity addNewMovie(@RequestBody Movie movie, LocalDate date) throws Exception {
         List<Seat> seats = new ArrayList<>();
         for(int roomId=1 ; roomId<3 ; roomId++)
         for (int i=0; i<30; i++) {

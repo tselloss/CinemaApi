@@ -15,7 +15,26 @@ import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-
+    /**
+     * The addCustomer method adds a new customer to the database if the username is unique,
+     * otherwise, it throws a CustomerException with a message "Customer already Exist With this Username".
+     *
+     * The updateCustomer method updates an existing customer's details if the customer is currently
+     * logged in and the mobile number is a 10-digit number.
+     * If the customer ID in the request does not match the ID of the logged-in customer,
+     * the method throws a CustomerException with a message "Can't change UserID!".
+     *
+     * The getCustomerDetailsByUsername method retrieves a customer's details by their username.
+     * If the customer is not found, it throws an Exception with a message "Customer not found with username: ".
+     *
+     * The removeCustomer method removes a customer from the database by their ID.
+     *
+     * The viewCustomer method retrieves a customer's details by their ID. If the customer is not found,
+     * it throws a CustomerException with a message "Customer doesn't found...".
+     *
+     * The viewAllCustomer method retrieves all customers from the database. If there are no customers in the database,
+     * it throws a CustomerException with a message "No Customers Found".
+     */
     @Autowired
     CustomerRepo customerRepo;
 
@@ -67,43 +86,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer removeCustomer(Customer cust, String key) throws CustomerException, LoginException {
-
-//		Optional<Customer> opt = customerDao.findById(cust.getCustomerId());
-//
-//		if(opt.isEmpty()) {
-//			throw new CustomerException("Customer is not registered");
-//		}
-
-//        Customer currentCustomer = currentUserSessionService.getCustomerDetails(key);
-//
-//        if(currentCustomer != null) {
-//
-//            if(cust.getCustomerId() == currentCustomer.getCustomerId()) {
-//
-//                customerRepo.delete(cust);
-//
-//                Optional<CurrentUserSession> opt = currentUserSessionDao.findByUuid(key) ;
-//
-//                CurrentUserSession currentSession = opt.get();
-//
-//                currentUserSessionDao.delete(currentSession);
-//                return cust;
-//
-//
-//            }
-//            else {
-//                throw new CustomerException("Invalid Customer ID") ;
-//            }
-//
-//        }
-//        else {
-//            throw new CustomerException("Invalid UUID key");
-//        }
-//
-
-
-        return null;
+    public Customer removeCustomer(Customer cust, String key) {
+        Customer removeCustomer = customerRepo.getOne(cust.getCustomerId());
+        customerRepo.delete(removeCustomer);
+        return removeCustomer;
     }
 
     @Override

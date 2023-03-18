@@ -7,7 +7,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailSenderServiceImpl {
-
+    /**
+     * This code defines a method for sending an email using the Spring Framework's JavaMailSender interface.
+     * The JavaMailSender interface provides a way to send emails through a JavaMail Session.
+     * The sendEmail method takes three parameters: the recipient email address, the email subject, and the email body.
+     * It creates a new SimpleMailMessage object, sets the from, to, text, and subject properties of the message,
+     * and sends the message using the mailSender instance. Finally, it prints a message to the console
+     * indicating that the email was sent successfully.
+     */
     @Autowired
     private JavaMailSender mailSender;
 
