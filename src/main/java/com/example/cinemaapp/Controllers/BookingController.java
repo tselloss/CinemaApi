@@ -52,7 +52,7 @@ public class BookingController {
 
     @GetMapping("/byDate/{date}")
     public ResponseEntity<List<Booking>> viewMovieByLocalDate(
-            @RequestParam("bookingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date)
+            @RequestParam("bookingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String date)
             throws Exception {
         return ResponseEntity.ok(bookingService.showAllBookings(date));
     }

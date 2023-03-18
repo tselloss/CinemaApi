@@ -9,6 +9,6 @@ public interface BookingService {
     Booking updateBooking(Booking booking);
     Booking cancelBooking(Booking booking);
     List<Booking> showAllBooking();
-    public List<Booking> showAllBookings(LocalDate bookingdate) throws Exception;
+    public List<Booking> showAllBookings(String bookingdate) throws Exception;
     public Booking viewBooking(int bookingid) throws Exception;
 }

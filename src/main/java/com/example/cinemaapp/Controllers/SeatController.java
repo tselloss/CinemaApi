@@ -63,14 +63,14 @@ public class SeatController {
     @GetMapping("/findByDate/{date}")
     public ResponseEntity<List<Seat>> viewAllSeatsByDate(
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            LocalDate date) throws Exception {
+            String date) throws Exception {
         return ResponseEntity.ok(seatService.showAllSeats(date));
     }
 
     @GetMapping("/findByDate/{date}/{roomId}")
     public ResponseEntity<List<Seat>> viewAllSeatsByDateAndRoomId(
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            LocalDate date, @RequestParam("roomId") Integer roomId) throws Exception {
+            String date, @RequestParam("roomId") Integer roomId) throws Exception {
         return ResponseEntity.ok(seatService.showAllSeatsByDateAndRoom(date,roomId));
     }
 

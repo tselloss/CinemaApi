@@ -64,7 +64,8 @@ public class SeatServiceImpl implements SeatService {
 
 
     @Override
-    public List<Seat> showAllSeats(LocalDate date) throws Exception {
+    public List<Seat> showAllSeats(String dateString) throws Exception {
+        LocalDate date = LocalDate.parse(dateString);
         List<Seat> seatList = new ArrayList<>();
         for (Seat seat : seatRepo.findAll()) {
             if (seat.getDate() != null && seat.getDate().isEqual(date)) {
@@ -79,7 +80,8 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public List<Seat> showAllSeatsByDateAndRoom(LocalDate date, Integer roomId) throws Exception {
+    public List<Seat> showAllSeatsByDateAndRoom(String dateString, Integer roomId) throws Exception {
+        LocalDate date = LocalDate.parse(dateString);
         List<Seat> seatList = new ArrayList<>();
         for (Seat seat : seatRepo.findAll()) {
             if (seat.getDate() != null && seat.getDate().isEqual(date)) {

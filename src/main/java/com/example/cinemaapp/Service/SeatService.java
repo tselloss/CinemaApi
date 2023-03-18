@@ -15,9 +15,9 @@ public interface SeatService {
 
     public Seat cancelSeatBooking(Seat seat);
 
-    public List<Seat> showAllSeats(LocalDate seatDate) throws Exception;
+    public List<Seat> showAllSeats(String dateString) throws Exception;
 
-    public List<Seat> showAllSeatsByDateAndRoom(LocalDate date,Integer roomId) throws Exception;
+    public List<Seat> showAllSeatsByDateAndRoom(String date,Integer roomId) throws Exception;
     public List<Seat> showAllSeatsByDateAndMovieId(String date,Integer movieId) throws  Exception;
 
 }

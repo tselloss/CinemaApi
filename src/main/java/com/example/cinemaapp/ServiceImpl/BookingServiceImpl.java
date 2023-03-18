@@ -60,10 +60,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> showAllBookings(LocalDate bookingdate) throws Exception {
+    public List<Booking> showAllBookings(String bookingdate) throws Exception {
+        LocalDate date = LocalDate.parse(bookingdate);
         List<Booking> bkList = new ArrayList<>();
         for (Booking booking : bookingRepo.findAll()) {
-            if (booking.getBookingDate() != null && booking.getBookingDate().isEqual(bookingdate)) {
+            if (booking.getBookingDate() != null && booking.getBookingDate().isEqual(date)) {
                 bkList.add(booking);
             }
         }
