@@ -21,11 +21,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This is a Spring REST Controller class for managing movie related operations.
- * It has three endpoints, one for getting all movies, one for adding a new movie and one for updating an existing movie.
- * It uses the MovieService to perform the business logic and the ModelMapper library for mapping between DTOs and entity objects
- * .The getAllMovies endpoint returns a list of MovieDTOs, the newMovie endpoint adds a new movie and returns the added movie,
- * and the updateMovieDetails endpoint updates an existing movie and returns the updated movie details in a MovieDTO format.
+ *getAllMovies: A GET endpoint that returns a list of all movies in the system in JSON format.
+ *
+ *addNewMovie: A POST endpoint that accepts a JSON payload containing movie details and a date,
+ * and adds the movie to the system. It also adds 60 seats (30 seats for each of two rooms) for
+ * the movie and returns the added movie details and the seats in JSON format.
+ *
+ *addToShow: A POST endpoint that accepts a JSON payload containing
+ * movie details and a show ID, and adds the movie to the specified show.
+ *
+ *updateMovieDetails: A PUT endpoint that accepts a movie ID and a JSON payload
+ * containing updated movie details, and updates the movie details in the system.
+ * It returns the updated movie details in JSON format.
  */
 
 @RestController

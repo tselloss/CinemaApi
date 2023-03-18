@@ -16,7 +16,30 @@ import java.util.List;
 
 @RestController
 public class SeatController {
-
+    /**
+     *     POST /seat/add: Creates a new seat by invoking the addSeat method of the SeatService.
+     *     The seat details are passed in the request body as a Seat object.
+     *
+     *     GET /findall: Returns a list of all seats by invoking the viewSeatList method of the SeatService.
+     *
+     *     GET /findByDate/{date}: Returns a list of seats for a given date by invoking the showAllSeats method of the SeatService.
+     *     The date is passed as a query parameter.
+     *
+     *     GET /findByDate/{date}/{roomId}: Returns a list of seats for a given date and room ID by invoking the showAllSeatsByDateAndRoom
+     *     method of the SeatService. The date and room ID are passed as query parameters.
+     *
+     *     GET /findByMovieIdAndDate/{movieId}/{date}: Returns a list of seats for a given movie ID and date by invoking the
+     *     showAllSeatsByDateAndMovieId method of the SeatService. The movie ID and date are passed as path variables.
+     *
+     *     PUT /updateSeat: Updates a seat by invoking the updateSeat method of the SeatService. The updated seat details are
+     *     passed in the request body as a Seat object.
+     *
+     *     PUT /bookSeat: Books a seat by invoking the bookSeat method of the SeatService. The seat details are passed in
+     *     the request body as a Seat object.
+     *
+     *     PUT /cancelSeat: Cancels a seat booking by invoking the cancelSeatBooking method of the SeatService.
+     *     The seat details are passed in the request body as a Seat object.
+     */
     @Autowired
     SeatService seatService;
 

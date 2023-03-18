@@ -23,6 +23,14 @@ import java.util.List;
 
 @RestController
 public class TicketController {
+    /**
+     *     getAllTickets(): retrieves all tickets in the system
+     *     addATicket(): creates a new ticket and optionally associates it with a booking
+     *     updateTicket(): updates an existing ticket
+     *     deleteTicket(): deletes a ticket
+     *     addSeat(): adds a seat to a ticket identified by its ID
+     *     removeSeat(): removes a seat from a ticket identified by its ID
+     */
     @Autowired
     private TicketService ticketService;
     @Autowired
