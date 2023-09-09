@@ -6,5 +6,10 @@ pipeline {
         git branch: 'main', url: 'https://github.com/tselloss/CinemaApi.git'
       }
     }
+     stage('UNIT Testing') {
+      steps {
+        sh 'mvn test'
+      }
+    }
   }
 }
