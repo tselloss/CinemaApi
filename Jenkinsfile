@@ -1,17 +1,37 @@
 pipeline {
-  agent any
-  stages {
-    stage('Git Checkout') {
-      steps {
-        git branch: 'main', url: 'https://github.com/tselloss/CinemaApi.git'
-      }
+    agent any
+
+  tools {
+         jdk 'jdk17'
+        maven 'maven3'
     }
-     stage('UNIT Testing') {
-      steps {
-         withMaven(maven: 'Maven') {
-             sh 'mvn test'
-        }       
-      }
+
+    stages {
+
+        stage('Git Checkout') {
+            steps {
+                script {
+                    git branch: 'main', url: 'https://github.com/tselloss/CinemaApi.git'
+                }
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                script {
+                    sh 'maven compile' 
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    sh 'maven package -DskipTests=true' 
+                }
+            }
+        }
+
+       
     }
-  }
 }
