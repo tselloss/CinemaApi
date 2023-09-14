@@ -1,37 +1,48 @@
 pipeline {
     agent any
-
-  tools {
-         jdk 'jdk17'
+    
+    tools{
         maven 'maven3'
+        jdk 'jdk17'
+    }
+    
+    environment {
+        
+        SCANNER_HOME= tool 'sonar-scanner'
     }
 
     stages {
-
-        stage('Git Checkout') {
+        stage('Git Checkout ') {
             steps {
-                script {
-                    git branch: 'main', url: 'https://github.com/tselloss/CinemaApi.git'
-                }
+                git branch: 'main', url: 'https://github.com/tselloss/CinemaApi.git'
             }
         }
-
-        stage('Compile') {
+        
+        stage('OWASP Dependency Check') {
             steps {
-                script {
-                    sh 'maven compile' 
-                }
+                dependencyCheck additionalArguments: ' --scan ./ ', odcInstallation: 'DC'
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-
-        stage('Build') {
+        
+        // stage('Trivy FS SCan') {
+        //     steps {
+        //         sh "trivy fs ."
+        //     }
+        // }
+        
+        stage('Sonarqube Analysis') {
             steps {
-                script {
-                    sh 'maven package -DskipTests=true' 
-                }
+                
+                withSonarQubeEnv('sonar'){
+                  sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=spring-demo \
+                    -Dsonar.projectKey=spring-demo ''' 
+               }
+                
+               
             }
         }
-
-       
+        
+        
     }
 }
