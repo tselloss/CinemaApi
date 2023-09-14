@@ -35,7 +35,7 @@ pipeline {
             steps {
                 
                 withSonarQubeEnv('sonar'){
-                  sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=jjj -Dsonar.projectName='jjj'"
+                  sh "${maven}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=jjj -Dsonar.projectName='jjj'"
     }
   }
 }
