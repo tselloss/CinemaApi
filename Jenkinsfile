@@ -35,14 +35,14 @@ pipeline {
             steps {
                 
                 withSonarQubeEnv('sonar'){
-                  sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=spring-demo \
-                    -Dsonar.projectKey=spring-demo ''' 
+                  sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=jjj -Dsonar.projectName='jjj'"
+    }
+  }
+}
                }
                 
                
             }
-        }
         
         
-    }
-}
+        
