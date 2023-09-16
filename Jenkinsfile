@@ -51,9 +51,10 @@ pipeline {
        stage('Sonarqube Analysis') {
             steps {
                 withSonarQubeEnv('sonar'){
-                sh '''mvn clean verify sonar:sonar -X \
+                sh '''$SCANNER_HOME/bin/sonar-scanner \
                 -Dsonar.projectName=cinemaApi \
                 -Dsonar.java.binaries=. \
+                -Dsonar.host.url=https://430f-5-203-141-24.ngrok-free.app \
                 -Dsonar.projectKey=cinemaApi'''
             }
         }
