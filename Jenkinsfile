@@ -1,48 +1,80 @@
 pipeline {
     agent any
-    
     tools{
-        maven 'maven3'
-        jdk 'jdk17'
-    }
-    
-    environment {
-        
+        jdk  'jdk17'
+        maven  'maven3'
+    }    
+    environment
+    {
         SCANNER_HOME= tool 'sonar-scanner'
+        SONARQUBE_IMAGE_NAME = 'sonarqube:latest'
+        JENKINS_IMAGE_NAME = 'jenkins/jenkins'
     }
-
     stages {
-        stage('Git Checkout ') {
+        stage('Git Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/tselloss/CinemaApi.git'
             }
         }
         
+        stage('COMPILE') {
+            steps {
+                sh "mvn clean compile -DskipTests=true"
+            }
+        }
+
         stage('OWASP Dependency Check') {
             steps {
-                dependencyCheck additionalArguments: ' --scan ./ ', odcInstallation: 'DCD'
+                dependencyCheck additionalArguments: ' --scan ./ ', odcInstallation: 'DC'
                     dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-        
-        stage('Trivy FS SCan') {
+
+        stage('File System Scan') {
             steps {
-                sh "trivy fs ."
+                sh "/var/jenkins_home/workspace/trivy fs ."
+            }
+        }
+
+        stage('Sonarqube Image Scan') {
+            steps {
+                 sh "/var/jenkins_home/workspace/trivy repo https://github.com/SonarSource/docker-sonarqube.git"
+            }
+        }
+
+        stage('Jenkins Image Scan') {
+            steps {               
+                sh "/var/jenkins_home/workspace/trivy image ${JENKINS_IMAGE_NAME}"
             }
         }
         
-        stage('Sonarqube Analysis') {
+       stage('Sonarqube Analysis') {
             steps {
-                
                 withSonarQubeEnv('sonar'){
-                  sh "${maven}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=jjj -Dsonar.projectName='jjj'"
-    }
-  }
-}
-               }
-                
-               
+                sh '''mvn clean verify sonar:sonar -X \
+                -Dsonar.projectName=httpClientApp \
+                -Dsonar.java.binaries=. \
+                -Dsonar.projectKey=httpClientApp'''
             }
+        }
+       }        
+
+        //  stage('Docker Build & Push') {
+        //     steps {
+        //         script{                      
+        //                 sh "docker login -u tselloss"
+        //             }
+        //         }
+        //     }
+        // }
+
+         stage('Build') {
+            steps {
+                sh "mvn clean package -DskipTests=true"
+            }
+        }
         
-        
+   }
+}
+
         
