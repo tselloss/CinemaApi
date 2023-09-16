@@ -52,9 +52,9 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar'){
                 sh '''mvn clean verify sonar:sonar -X \
-                -Dsonar.projectName=httpClientApp \
+                -Dsonar.projectName=cinemaApi \
                 -Dsonar.java.binaries=. \
-                -Dsonar.projectKey=httpClientApp'''
+                -Dsonar.projectKey=cinemaApi'''
             }
         }
        }        
