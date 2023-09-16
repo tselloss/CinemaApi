@@ -42,7 +42,6 @@ public class CustomerServiceImpl implements CustomerService {
     CurrentCustomerService currentCustomerService;
 
 
-    //todo
     @Autowired
     CurrentUserSessionRepo currentUserSessionRepo;
 
