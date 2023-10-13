@@ -36,7 +36,7 @@ public class SecurityIssues {
         }
     }
 
-    public void SqlInjectionCopy) throws Exception {
+    public void SqlInjectionCopy() throws Exception {
         try {
             String url = "jdbc:postgresql://your_postgresql_server:5432/your_database";
             String user = "your_username";
