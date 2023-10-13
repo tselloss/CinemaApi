@@ -36,6 +36,8 @@ public class CustomerController {
     @PostMapping(value = "/register",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
     public ResponseEntity<Customer> addCustomerHandler(@RequestBody Customer customer) throws CustomerException{
         Customer addedCustomer = customerService.addCustomer(customer);
+        String message = "Dear "+customer.getUsername() +",\n\nThank you for registering with our online cinema movie booking application. We look forward to bringing you the best movie experience.\n\nSincerely,\nThe Online Cinema Movie Booking Shop team";
+        emailSenderService.sendEmail(customer.getEmail(),"Registry confirmation",message);
         return new ResponseEntity<Customer>(addedCustomer, HttpStatus.CREATED);
     }
 
