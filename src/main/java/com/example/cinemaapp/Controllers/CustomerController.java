@@ -36,7 +36,6 @@ public class CustomerController {
     @PostMapping(value = "/register",consumes= MediaType.APPLICATION_JSON_VALUE,headers="Accept=application/json")
     public ResponseEntity<Customer> addCustomerHandler(@RequestBody Customer customer) throws CustomerException{
         Customer addedCustomer = customerService.addCustomer(customer);
-        
         return new ResponseEntity<Customer>(addedCustomer, HttpStatus.CREATED);
     }
 
