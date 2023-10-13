@@ -29,6 +29,8 @@ public class Customer {
     @Size(min = 8, max = 16, message = "Password must contain min 8 and max 16 digits!")
     private String password;
 
+    private String passwordThatWeCanSeeAsSecurityIssue= "I am the password that you can see";
+
     @Email(message = "Please enter a valid email...")
     private String email;
 
