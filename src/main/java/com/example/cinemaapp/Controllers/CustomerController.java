@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.security.ssl.SSLLogger;
 
 import java.util.List;
 
@@ -39,8 +38,6 @@ public class CustomerController {
         Customer addedCustomer = customerService.addCustomer(customer);
         String message = "Dear "+customer.getUsername() +",\n\nThank you for registering with our online cinema movie booking application. We look forward to bringing you the best movie experience.\n\nSincerely,\nThe Online Cinema Movie Booking Shop team";
         emailSenderService.sendEmail(customer.getEmail(),"Registry confirmation",message);
-        SSLLogger logger = null;
-        logger.info("The send operation failed when attempting to deliver to " +customer.getEmail());
         return new ResponseEntity<Customer>(addedCustomer, HttpStatus.CREATED);
     }
 
