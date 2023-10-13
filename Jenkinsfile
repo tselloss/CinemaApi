@@ -54,7 +54,7 @@ pipeline {
                 sh '''$SCANNER_HOME/bin/sonar-scanner \
                 -Dsonar.projectName=cinemaApi \
                 -Dsonar.java.binaries=. \
-                -Dsonar.host.url=https://430f-5-203-141-24.ngrok-free.app \
+                -Dsonar.host.url=https://1bf7-109-178-137-184.ngrok-free.app \
                 -Dsonar.projectKey=cinemaApi'''
             }
         }
